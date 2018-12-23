@@ -1,6 +1,14 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-export default class Article extends Component {
+export default class Article extends React.PureComponent {
+    constructor(props) {
+        super(props);
+
+        this.onToggle = () => {
+            this.props.toggleOpenClose(this.props.article.id);
+        };
+    }
+
     get articleBody() {
         const {article, isOpen} = this.props;
         if (!isOpen) return null;
@@ -8,12 +16,12 @@ export default class Article extends Component {
     }
 
     render() {
-        const {article, isOpen, onToggleOpen} = this.props;
+        const {article, isOpen} = this.props;
         const buttonTitle = isOpen ? `open` : `close`;
         return (
             <div>
                 <h3>{article.title}</h3>
-                <button onClick={onToggleOpen}>
+                <button onClick={this.onToggle}>
                     {buttonTitle}
                 </button>
                 {this.articleBody}
