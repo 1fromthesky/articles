@@ -8,6 +8,9 @@ export default class Article extends React.Component {
         };
 
         this.onChangeName = (event) => {
+            if (event.target.value > 20) {
+                return this.setState({userName: ``});
+            }
           this.setState({userName: event.target.value});
         };
     }
