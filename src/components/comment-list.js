@@ -1,9 +1,21 @@
 import React from 'react';
 import Comment from './comment';
+import showOrHideElem from '../decorators/show-or-hide-elem';
 
-export default class ComentList extends React.Component {
+class ComentList extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.onToggle = () => {
+            this.props.toggleHideShow();
+        }
+    }
+
     get commentsBody() {
-        return this.props.comments.map(item => {
+        const {isShow} = this.props;
+        if (!isShow) return null;
+
+        const body = this.props.comments.map(item => {
             return (
                 <li key={item.id}>
                     <Comment
@@ -12,13 +24,23 @@ export default class ComentList extends React.Component {
                 </li>
             );
         });
+
+        return <ul>{body}</ul>;
     }
 
     render() {
+        const {isShow} = this.props;
+        const buttonTitle = isShow ? `Hide Comments` : `Show Comments`;
+
         return (
-            <ul>
+            <div>
+                <button onClick = {this.onToggle}>
+                    {buttonTitle}
+                </button>
                 {this.commentsBody}
-            </ul>
+            </div>
         );
     }
 }
+
+export default showOrHideElem(ComentList);
