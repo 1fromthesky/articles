@@ -42,6 +42,8 @@ export default class App extends Component {
                     value={selectedOption}
                     onChange={this.handleChange}
                     options = {this.selectOptions}
+                    closeMenuOnSelect={false}
+                    isMulti
                 />
                 <ArticleList
                     items = {articles}
