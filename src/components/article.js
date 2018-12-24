@@ -1,4 +1,5 @@
 import React from 'react';
+import CommentList from './comment-list';
 
 export default class Article extends React.PureComponent {
     constructor(props) {
@@ -12,7 +13,20 @@ export default class Article extends React.PureComponent {
     get articleBody() {
         const {article, isOpen} = this.props;
         if (!isOpen) return null;
-        return <section>{article.text}</section>;
+        return (
+            <>
+                <section>{article.text}</section>
+                {this.comments}
+            </>
+        );
+    }
+
+    get comments() {
+        const {article} = this.props;
+        return article.comments ?
+            <CommentList
+                comments = {article.comments}
+            /> : null;
     }
 
     render() {
