@@ -1,44 +1,34 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## HT1
+1. Подключить react-day-picker, выводить диапазон дат;
+2. Select превратить в мультиселект;
+3. Вывести комментарии;
+4. Декоратор открытия/закрытия комментариев к статье и соответствующую кнопку.
 
-## Available Scripts
+## HT2
+1. Анимация комментариев;
+2. Покрыть тестами комментарии;
+3. Тест на закрытие статьи;
+4. Написать PropTypes для всех компонент.
 
-In the project directory, you can run:
+## HT3
+1. Вынести состояние фильтров в стор;
+2. Релизовать фильтрацию статей.
 
-### `npm start`
+## HT4
+1. Форма для добавления комментариев к статье (имя, текст; бонус – валидация)
+2. Middleware для генерации ID комментариев
+3. Переписать articles на тип хранения "ключ:значение"
+4. Добавления комментария статье
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## HT5
+1. Реализовать загрузку комментариев при открытии списка комментариев;
+2. Загружать комментарии только один раз, показывать лоадер;
+3. Лоадер для загрузки статьи.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## HT6
+1. Завести раут для пагинации комментариев (/comments/2, по 5 комментариев на страницу со всех статей; API /api/comment?limit=5&offset=10)
+2. Реализовать пагинацию, загружать стр с комментариями 1 раз
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## HT7
+1. Реализовать интернационализацию. Словарь хранить в контексте
+2. Пофикстить первое открытие статьи при перезагрузке страницы статьи
