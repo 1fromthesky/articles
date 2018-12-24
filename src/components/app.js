@@ -3,6 +3,8 @@ import ArticleList from './article-list';
 import articles from '../fixtures';
 import UserForm from './user-form';
 import Select from 'react-select';
+import DayPicker from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
 
 export default class App extends Component {
     constructor(props) {
@@ -31,6 +33,10 @@ export default class App extends Component {
 
         return (
             <div>
+                <DayPicker
+                    showOutsideDays
+                    todayButton="Go to Today"
+                />
                 <UserForm/>
                 <Select
                     value={selectedOption}
