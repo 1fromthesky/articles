@@ -5,6 +5,10 @@ export default class Article extends React.PureComponent {
     constructor(props) {
         super(props);
 
+        this.state = {
+            error: null,
+        };
+
         this.onToggle = () => {
             this.props.toggleOpenClose(this.props.article.id);
         };
@@ -16,17 +20,9 @@ export default class Article extends React.PureComponent {
         return (
             <>
                 <section>{article.text}</section>
-                {this.comments}
+            {this.state.error ? null : <CommentList comments = {article.comments}/>}
             </>
         );
-    }
-
-    get comments() {
-        const {article} = this.props;
-        return article.comments ?
-            <CommentList
-                comments = {article.comments}
-            /> : null;
     }
 
     render() {
@@ -41,5 +37,9 @@ export default class Article extends React.PureComponent {
                 {this.articleBody}
             </div>
         );
+    }
+
+    componentDidCatch(error) {
+        this.setState({error});
     }
 };

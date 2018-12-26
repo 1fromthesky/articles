@@ -2,7 +2,7 @@ import React from 'react';
 import Comment from './comment';
 import showOrHideElem from '../decorators/show-or-hide-elem';
 
-class ComentList extends React.Component {
+class CommentList extends React.Component {
     constructor(props) {
         super(props);
 
@@ -43,4 +43,4 @@ class ComentList extends React.Component {
     }
 }
 
-export default showOrHideElem(ComentList);
+export default showOrHideElem(CommentList);

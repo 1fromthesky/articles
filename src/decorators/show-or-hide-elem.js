@@ -5,7 +5,7 @@ export default (OriginalComponent) => class DecoratedComponent extends React.Com
         super(props);
 
         this.state = {
-            isShow: true
+            isShow: false
         };
 
         this.toggleHideShow = () => {
