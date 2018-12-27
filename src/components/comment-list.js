@@ -3,6 +3,10 @@ import Comment from './comment';
 import showOrHideElem from '../decorators/show-or-hide-elem';
 
 class CommentList extends React.Component {
+    static defaultProps = {
+        comments:[]
+    };
+
     constructor(props) {
         super(props);
 
