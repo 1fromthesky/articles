@@ -1,11 +1,18 @@
 import React from 'react';
 import Comment from './comment';
 import showOrHideElem from '../decorators/show-or-hide-elem';
+import PropTypes from 'prop-types';
 
 class CommentList extends React.Component {
-    static defaultProps = {
-        comments:[]
+    static propTypes = {
+        comments: PropTypes.array.isRequired,
+        isShow: PropTypes.bool.isRequired,
+        toggleHideShow: PropTypes.func.isRequired
     };
+
+    // static defaultProps = {
+    //     comments: [],
+    // };
 
     constructor(props) {
         super(props);

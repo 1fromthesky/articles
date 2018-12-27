@@ -1,7 +1,18 @@
 import React from 'react';
 import CommentList from './comment-list';
+import PropTypes from 'prop-types';
 
 export default class Article extends React.PureComponent {
+    static propTypes = {
+        article: PropTypes.shape({
+            id: PropTypes.string,
+            text: PropTypes.string,
+            comments: PropTypes.array
+        }),
+        isOpen: PropTypes.bool.isRequired,
+        toggleOpenClose: PropTypes.func.isRequired
+    };
+
     constructor(props) {
         super(props);
 
