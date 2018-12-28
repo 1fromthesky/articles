@@ -30,7 +30,7 @@ export default class Article extends React.PureComponent {
         if (!isOpen) return null;
         return (
             <>
-                <section>{article.text}</section>
+                <section className="test--article__body">{article.text}</section>
             {this.state.error ? null : <CommentList comments = {article.comments}/>}
             </>
         );
@@ -42,7 +42,10 @@ export default class Article extends React.PureComponent {
         return (
             <div>
                 <h3>{article.title}</h3>
-                <button onClick={this.onToggle}>
+                <button
+                    onClick={this.onToggle}
+                    className = {`test--article__button`}
+                >
                     {buttonTitle}
                 </button>
                 {this.articleBody}

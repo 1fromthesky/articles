@@ -2,10 +2,10 @@ import React from 'react';
 import Article from './article';
 import accordion from '../decorators/accordion';
 
-class ArticleList extends React.Component {
-    get articles() {
-        return this.props.items.map(item => {
-            return <li key={item.id}>
+export class ArticleList extends React.Component {
+    get items() {
+        return this.props.articles.map(item => {
+            return <li key={item.id} className="test--article-list__item">
                 <Article
                     article = {item}
                     isOpen = {this.props.openItemId === item.id}
@@ -18,7 +18,7 @@ class ArticleList extends React.Component {
     render() {
         return (
             <ul>
-                {this.articles}
+                {this.items}
             </ul>
         );
     }
