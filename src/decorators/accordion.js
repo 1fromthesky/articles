@@ -8,7 +8,9 @@ export default (OriginalComponent) => class DecoratedComponent extends React.Com
         };
 
         this.toggleOpenCloseItem = (openItemId) => {
-            this.setState({openItemId});
+            this.setState({
+                openItemId: openItemId === this.state.openItemId ? null : openItemId
+            });
         };
     }
 

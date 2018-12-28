@@ -1,5 +1,5 @@
 import React from  'react';
-import Enzyme, {render, shallow, mount} from 'enzyme';
+import Enzyme, {render, shallow , mount} from 'enzyme';
 import AdapterReact16 from 'enzyme-adapter-react-16';
 import DecoratedArticleList, {ArticleList} from './article-list';
 import articles from '../fixtures';
@@ -8,7 +8,7 @@ Enzyme.configure({ adapter: new AdapterReact16() });
 
 describe(`Article List`, () => {
     it(`should render articles`, () => {
-        const wrapper = shallow(<ArticleList articles = {articles} />);
+        const wrapper = shallow (<ArticleList articles = {articles} />);
         expect(wrapper.find(`.test--article-list__item`).length).toEqual(articles.length);
     });
 

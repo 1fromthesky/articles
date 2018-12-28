@@ -4,10 +4,12 @@
   "private": true,
   "dependencies": {
     "react": "^16.7.0",
+    "react-addons-css-transition-group": "^15.6.2",
     "react-day-picker": "^7.2.4",
     "react-dom": "^16.7.0",
     "react-scripts": "2.1.1",
     "react-select": "^2.1.2",
+    "react-transition-group": "1.x",
     "yarn-install": "^1.0.0"
   },
   "scripts": {
