@@ -30,7 +30,7 @@ class CommentList extends React.Component {
 
         const body = this.props.comments.map(item => {
             return (
-                <li key={item.id}>
+                <li key={item.id} className="test--comments-list__item">
                     <Comment
                         {...item}
                     />
@@ -38,7 +38,7 @@ class CommentList extends React.Component {
             );
         });
 
-        return <ul>{body}</ul>;
+        return <ul className="test--comments__body">{body}</ul>;
     };
 
     render() {
@@ -47,7 +47,7 @@ class CommentList extends React.Component {
 
         return (
             <div>
-                <button onClick = {this.onToggle}>
+                <button onClick = {this.onToggle} className = {`test--comments__button`}>
                     {buttonTitle}
                 </button>
                 <CSSTransitionGroup
