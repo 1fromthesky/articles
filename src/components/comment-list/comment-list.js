@@ -1,6 +1,6 @@
 import React from 'react';
-import Comment from './comment';
-import showOrHideElem from '../decorators/show-or-hide-elem';
+import Comment from '../comment/index';
+import showOrHideElem from '../../decorators/show-or-hide-elem';
 import PropTypes from 'prop-types';
 
 class CommentList extends React.Component {

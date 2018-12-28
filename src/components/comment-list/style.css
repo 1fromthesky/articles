@@ -1,17 +1,17 @@
-.article-enter {
+.comments-enter {
     opacity: 0.01;
 }
 
-.article-enter.article-enter-active {
+.comments-enter.comments-enter-active {
     opacity: 1;
     transition: opacity 500ms ease-in;
 }
 
-.article-leave {
+.comments-leave {
     opacity: 1;
 }
 
-.article-leave.article-leave-active {
+.comments-leave.comments-leave-active {
     opacity: 0.01;
     transition: opacity 500ms ease-in;
 }
