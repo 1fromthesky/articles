@@ -2,6 +2,8 @@ import React from 'react';
 import Comment from '../comment/index';
 import showOrHideElem from '../../decorators/show-or-hide-elem';
 import PropTypes from 'prop-types';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import './style.css';
 
 class CommentList extends React.Component {
     static propTypes = {
@@ -37,7 +39,7 @@ class CommentList extends React.Component {
         });
 
         return <ul>{body}</ul>;
-    }
+    };
 
     render() {
         const {isShow} = this.props;
@@ -48,7 +50,13 @@ class CommentList extends React.Component {
                 <button onClick = {this.onToggle}>
                     {buttonTitle}
                 </button>
-                {this.commentsBody}
+                <CSSTransitionGroup
+                    transitionName="comments"
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={300}
+                >
+                    {this.commentsBody}
+                </CSSTransitionGroup>
             </div>
         );
     }
