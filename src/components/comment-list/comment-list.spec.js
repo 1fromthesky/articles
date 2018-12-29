@@ -21,4 +21,15 @@ describe(`Comment List`, () => {
         //const wrapper = render (<CommentList comments = {articles[0].comments} />);
         expect(wrapper.find(`.test--comments-list__item`).length).toEqual(articles[0].comments.length);
     });
+
+    it(`should close comments on click`, async (done) => {
+        await wrapper
+            .find(`.test--comments__button`)
+            .at(0)
+            .simulate(`click`);
+        done();
+        expect(wrapper.find(`.test--comments-list__item`).length).toEqual(0);
+        expect(wrapper.find(`.test--comments__body`).length).toEqual(0);
+
+    });
 });
