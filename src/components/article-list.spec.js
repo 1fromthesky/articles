@@ -26,4 +26,20 @@ describe(`Article List`, () => {
 
         expect(wrapper.find(`.test--article__body`).length).toEqual(1);
     });
+
+    it(`should close article on click`, async (done) => {
+        const wrapper = mount(<DecoratedArticleList articles = {articles} />);
+        await wrapper
+            .find(`.test--article__button`)
+            .at(0)
+            .simulate(`click`);
+        await wrapper
+            .find(`.test--article__button`)
+            .at(0)
+            .simulate(`click`);
+        done();
+        expect(wrapper.find(`.test--article-list__item`).length).toEqual(0);
+        expect(wrapper.find(`.test--article__body`).length).toEqual(0);
+
+    });
 });
