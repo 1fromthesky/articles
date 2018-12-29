@@ -1,7 +1,12 @@
 import React from 'react';
 import Select from 'react-select';
+import PropTypes from 'prop-types';
 
 export default class Filters extends React.Component {
+    static propTypes = {
+        articles: PropTypes.array
+    };
+
     constructor(props) {
         super(props);
         this.state = {
