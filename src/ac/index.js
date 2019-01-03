@@ -1,5 +1,6 @@
 import {INCREMENT} from '../constants';
 
-export const incrementActionCreator = () => {
+export const incrementAC = () => {
     return {type: INCREMENT}
 };
+
