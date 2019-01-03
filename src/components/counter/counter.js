@@ -1,10 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {INCREMENT} from '../../constants'
 
 class Counter extends React.Component {
     onClick = () => {
         this.props.dispatch({
-           type: `INCREMENT`
+           type: INCREMENT
         });
     };
 
