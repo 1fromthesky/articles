@@ -1,12 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {INCREMENT} from '../../constants'
+import {incrementActionCreator} from '../../ac'
 
 class Counter extends React.Component {
     onClick = () => {
-        this.props.dispatch({
-           type: INCREMENT
-        });
+        this.props.increment();
     };
 
     render() {
@@ -25,5 +23,7 @@ const mapStateProps = (state) => {
     }
 };
 
-
-export default connect(mapStateProps)(Counter);
+const mapDispatchToProps = {
+    increment: incrementActionCreator
+};
+    export default connect(mapStateProps, mapDispatchToProps)(Counter);
