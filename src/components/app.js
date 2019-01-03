@@ -3,6 +3,7 @@ import ArticleList from './article-list';
 import articles from '../fixtures';
 import UserForm from './user-form';
 import Filters from './filters';
+import Counter from './counter';
 
 
 export default class App extends React.Component {
@@ -10,6 +11,7 @@ export default class App extends React.Component {
         return (
             <div>
                 <UserForm/>
+                <Counter/>
                 <Filters
                     articles = {articles}
                 />
