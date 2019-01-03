@@ -1,6 +1,8 @@
 import {combineReducers} from 'redux';
-import counterReduce from './counter';
+import counterReducer from './counter';
+import articlesReducer from './articles'
 
 export default combineReducers({
-    count: counterReduce
+    count: counterReducer,
+    articles: articlesReducer
 })

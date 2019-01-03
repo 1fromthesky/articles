@@ -1,10 +1,12 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import CommentList from '../comment-list/comment-list';
 import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import './style.css';
+import {deleteArticleAC} from '../../ac'
 
-export default class Article extends React.PureComponent {
+class Article extends React.PureComponent {
     static propTypes = {
         article: PropTypes.shape({
             id: PropTypes.string,
@@ -20,6 +22,10 @@ export default class Article extends React.PureComponent {
 
         this.state = {
             error: null,
+        };
+
+        this.onDeleteArticle = () => {
+            this.props.dispatchDeleteArticle(this.props.article.id);
         };
 
         this.onToggle = () => {
@@ -40,16 +46,25 @@ export default class Article extends React.PureComponent {
 
     render() {
         const {article, isOpen} = this.props;
-        const buttonTitle = isOpen ? `open` : `close`;
+        const buttonTitle = isOpen ? `close` : `open`;
         return (
             <div>
                 <h3>{article.title}</h3>
+
                 <button
                     onClick={this.onToggle}
                     className = {`test--article__button`}
                 >
                     {buttonTitle}
                 </button>
+
+                <button
+                    onClick={this.onDeleteArticle}
+                    className = {`test--article-delete__button`}
+                >
+                    Delete me
+                </button>
+
                 <CSSTransitionGroup
                     transitionName="article"
                     transitionEnterTimeout={500}
@@ -57,7 +72,6 @@ export default class Article extends React.PureComponent {
                 >
                     {this.articleBody}
                 </CSSTransitionGroup>
-
             </div>
         );
     }
@@ -65,4 +79,9 @@ export default class Article extends React.PureComponent {
     componentDidCatch(error) {
         this.setState({error});
     }
-};
+}
+
+export default connect(
+    null,
+    {dispatchDeleteArticle: deleteArticleAC}
+    )(Article);
