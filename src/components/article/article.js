@@ -1,7 +1,7 @@
 import React from 'react';
 import CommentList from '../comment-list/comment-list';
 import PropTypes from 'prop-types';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import CSSTransitionGroup from 'react-addons-css-transition-group';
 import './style.css';
 
 export default class Article extends React.PureComponent {
