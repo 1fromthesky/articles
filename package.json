@@ -9,7 +9,7 @@
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
     "react-scripts": "2.1.1",
-    "react-select": "^2.1.2",
+    "react-select": "^2.2.0",
     "react-transition-group": "1.x",
     "redux": "^4.0.1",
     "yarn-install": "^1.0.0"

@@ -1,9 +1,10 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import Select from './select';
 import DateRange from './date-range';
 import PropTypes from 'prop-types';
 
-export default class Filters extends React.Component {
+class Filters extends React.Component {
     static propTypes = {
         articles: PropTypes.arrayOf(PropTypes.shape({
             id: PropTypes.string,
@@ -23,3 +24,11 @@ export default class Filters extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (store) => {
+    return {
+        articles: store.articles
+    }
+};
+
+export default connect(mapStateToProps)(Filters);

@@ -11,9 +11,7 @@ export default class App extends React.Component {
             <div>
                 <UserForm/>
                 <Counter/>
-                <Filters
-                    articles = {[]}
-                />
+                <Filters/>
                 <ArticleList/>
             </div>
         );
