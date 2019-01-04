@@ -9,9 +9,21 @@ export default (articleState = articles, action) => {
             if (action.payload.length === 0) {
                 return articles;
             }
-            return articles.filter(article => action.payload.find((item) => {
-                return article.id === item.value;
-            }));
+            // return articles.filter(article => action.payload.find((item) => {
+            //     return article.id === item.value;
+            // }));
+
+            const newArticles = [];
+            action.payload.forEach((item) => {
+                const selectArticle = articles.find((article) => {
+                    return article.id === item.value;
+                });
+
+                if (selectArticle) {
+                    newArticles.push(selectArticle);
+                }
+            });
+            return newArticles;
         default:
             return articleState;
     }
