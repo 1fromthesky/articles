@@ -1,44 +1,45 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import Select from 'react-select';
 import PropTypes from 'prop-types';
+import {selectArticlesAC} from "../../ac/index";
 
-export default class Filters extends React.Component {
+
+class Filters extends React.Component {
     static propTypes = {
         articles: PropTypes.array
     };
 
     constructor(props) {
         super(props);
-        this.state = {
-            selectedOption: null,
-        };
 
         this.handleChange = (selectedOption) => {
-            this.setState({ selectedOption });
-            console.log(`Option selected:`, selectedOption);
+            // this.setState({ selectedOption });
+            this.props.dispatchSelectArticles(selectedOption);
         };
-    }
-
-    get selectOptions() {
-        return this.props.articles.map((item) => {
-            return {
-                value: item.id,
-                label: item.title
-            };
-        })
     }
 
     render() {
-        const { selectedOption } = this.state;
-
+        const { selectedOption } = this.props;
         return (
             <Select
                 value={selectedOption}
                 onChange={this.handleChange}
-                options = {this.selectOptions}
+                options = {this.props.selectOptions}
                 closeMenuOnSelect={false}
                 isMulti
             />
         );
     }
 }
+
+const mapStateToProps = (store) => {
+    return {
+        selectOptions: store.selectOptions,
+        selectedOption: store.selectedOption
+    }
+};
+
+export default connect(mapStateToProps, {
+    dispatchSelectArticles: selectArticlesAC
+    })(Filters);

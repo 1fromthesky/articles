@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import Select from './select';
 import DateRange from './date-range';
 import PropTypes from 'prop-types';
@@ -18,17 +17,11 @@ class Filters extends React.Component {
     render() {
         return (
             <div>
-                <Select articles={this.props.articles} />
+                <Select/>
                 <DateRange />
             </div>
         )
     }
 }
 
-const mapStateToProps = (store) => {
-    return {
-        articles: store.articles
-    }
-};
-
-export default connect(mapStateToProps)(Filters);
+export default Filters;
