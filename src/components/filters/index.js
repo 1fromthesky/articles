@@ -18,7 +18,7 @@ class Filters extends React.Component {
         return (
             <div>
                 <Select/>
-                <DateRange />
+                <DateRange/>
             </div>
         )
     }

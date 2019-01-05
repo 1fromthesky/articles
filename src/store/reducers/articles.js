@@ -1,4 +1,4 @@
-import {DELETE_ARTICLE, SELECT_ARTICLES} from '../../constants';
+import {DELETE_ARTICLE, SELECT_ARTICLES, DAYS_RANGE} from '../../constants';
 import articles from '../../fixtures';
 
 export default (articleState = articles, action) => {
@@ -24,6 +24,13 @@ export default (articleState = articles, action) => {
                 }
             });
             return newArticles;
+        case DAYS_RANGE:
+            if (!action.payload) return articles;
+
+            return articles.filter((article) => {
+                const articleDate = new Date(article.date);
+                return articleDate >= action.payload.from && articleDate <= action.payload.to;
+            });
         default:
             return articleState;
     }

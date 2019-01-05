@@ -1,8 +1,10 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
+import {filterDaysRangeAC} from "../../ac/index";
 
-export default class Example extends React.Component {
+class DaysRange extends React.Component {
     static defaultProps = {
         numberOfMonths: 2
     };
@@ -22,11 +24,13 @@ export default class Example extends React.Component {
 
     handleDayClick = (day) => {
         const range = DateUtils.addDayToRange(day, this.state);
-        this.setState(range)
+        this.setState(range);
+        this.props.dispatchSelectRange(range);
     };
 
     handleResetClick = () => {
         this.setState(this.getInitialState());
+        this.props.dispatchSelectRange(null);
     };
 
     render() {
@@ -59,3 +63,7 @@ export default class Example extends React.Component {
         )
     }
 }
+
+export default connect(null, {
+        dispatchSelectRange: filterDaysRangeAC
+    })(DaysRange);
