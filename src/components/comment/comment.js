@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
-export default class Comments extends React.PureComponent {
+ class Comments extends React.PureComponent {
     static propTypes = {
+        id: PropTypes.string.isRequired,
         comment: PropTypes.shape({
-            id: PropTypes.string,
             user: PropTypes.string,
             text: PropTypes.string
         }),
     };
 
     render() {
-        const {user, text} = this.props;
+        const {user, text} = this.props.comment;
         return (
             <div>
                 <h4>{user}</h4>
@@ -20,3 +21,11 @@ export default class Comments extends React.PureComponent {
         );
     }
 }
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        comment: state.comments.find(comment => comment.id === ownProps.id)
+    }
+};
+
+export default connect(mapStateToProps)(Comments);

@@ -28,11 +28,11 @@ class CommentList extends React.Component {
         const {isShow} = this.props;
         if (!isShow) return null;
 
-        const body = this.props.comments.map(item => {
+        const body = this.props.comments.map(commentId => {
             return (
-                <li key={item.id} className="test--comments-list__item">
+                <li key={commentId} className="test--comments-list__item">
                     <Comment
-                        {...item}
+                        id={commentId}
                     />
                 </li>
             );
