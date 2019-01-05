@@ -1,40 +1,21 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import DayPicker, { DateUtils } from 'react-day-picker';
-import 'react-day-picker/lib/style.css';
-import {filterDaysRangeAC} from "../../ac/index";
+import React from 'react'
+import { connect } from 'react-redux'
+import DayPicker, { DateUtils } from 'react-day-picker'
+import { changeDateRangeAC } from '../../store/ac'
+import 'react-day-picker/lib/style.css'
 
-class DaysRange extends React.Component {
+class DateRange extends React.Component {
     static defaultProps = {
         numberOfMonths: 2
     };
 
-    constructor(props) {
-        super(props);
-
-        this.state = this.getInitialState()
-    }
-
-    getInitialState() {
-        return {
-            from: undefined,
-            to: undefined
-        }
-    }
-
     handleDayClick = (day) => {
-        const range = DateUtils.addDayToRange(day, this.state);
-        this.setState(range);
-        this.props.dispatchSelectRange(range);
-    };
-
-    handleResetClick = () => {
-        this.setState(this.getInitialState());
-        this.props.dispatchSelectRange(null);
+        const { changeDateRange, range } = this.props;
+        changeDateRange(DateUtils.addDayToRange(day, range))
     };
 
     render() {
-        const { from, to } = this.state;
+        const { from, to } = this.props.range;
         const modifiers = { start: from, end: to };
         return (
             <div className="RangeExample">
@@ -45,12 +26,6 @@ class DaysRange extends React.Component {
                     to &&
                     `Selected from ${from.toLocaleDateString()} to
                 ${to.toLocaleDateString()}`}{' '}
-                    {from &&
-                    to && (
-                        <button className="link" onClick={this.handleResetClick}>
-                            Reset
-                        </button>
-                    )}
                 </p>
                 <DayPicker
                     className="Selectable"
@@ -64,6 +39,9 @@ class DaysRange extends React.Component {
     }
 }
 
-export default connect(null, {
-        dispatchSelectRange: filterDaysRangeAC
-    })(DaysRange);
+export default connect(
+    (state) => ({
+        range: state.filters.dateRange
+    }),
+    { changeDateRange: changeDateRangeAC }
+)(DateRange)

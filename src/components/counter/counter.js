@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {incrementAC} from '../../ac'
+import {incrementAC} from '../../store/ac'
 
 class Counter extends React.Component {
     onClick = () => {

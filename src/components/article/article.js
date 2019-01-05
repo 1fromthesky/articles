@@ -4,7 +4,7 @@ import CommentList from '../comment-list/comment-list';
 import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import './style.css';
-import {deleteArticleAC} from '../../ac'
+import {deleteArticleAC} from '../../store/ac'
 
 class Article extends React.PureComponent {
     static propTypes = {

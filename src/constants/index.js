@@ -1,7 +1,7 @@
-export const INCREMENT = `INCREMENT`;
+export const INCREMENT = 'INCREMENT';
 
-export const DELETE_ARTICLE = `DELETE_ARTICLE`;
+export const DELETE_ARTICLE = 'DELETE_ARTICLE';
 
-export const SELECT_ARTICLES = `SELECT_ARTICLES`;
+export const CHANGE_SELECTION = 'CHANGE_SELECTION';
 
-export const DAYS_RANGE = `DAYS_RANGE`;
+export const CHANGE_DATE_RANGE = 'CHANGE_DATE_RANGE';
