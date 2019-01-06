@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {commentSelector} from "../../selectors/index";
 
  class Comments extends React.PureComponent {
     static propTypes = {
@@ -24,7 +25,7 @@ import {connect} from 'react-redux';
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        comment: state.comments.find(comment => comment.id === ownProps.id)
+        comment: commentSelector(state, ownProps)
     }
 };
 
