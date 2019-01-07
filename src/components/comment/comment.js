@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {commentSelector} from "../../selectors/index";
+import {createCommentSelector} from "../../selectors/index";
 
  class Comments extends React.PureComponent {
     static propTypes = {
@@ -23,10 +23,12 @@ import {commentSelector} from "../../selectors/index";
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
-    return {
+const initMapStateToProps = () => {
+    const commentSelector = createCommentSelector();
+
+    return (state, ownProps) => ({
         comment: commentSelector(state, ownProps)
-    }
+    });
 };
 
-export default connect(mapStateToProps)(Comments);
+export default connect(initMapStateToProps)(Comments);
