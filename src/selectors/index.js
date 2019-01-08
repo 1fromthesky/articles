@@ -7,7 +7,7 @@ export const createCommentSelector = () => {
     return createSelector(
         commentsSelector,
         idSelector,  (comments, id) => {
-            return comments.find(comment => comment.id === id)
+            return comments[id];
         }
     );
 };
