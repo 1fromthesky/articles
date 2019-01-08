@@ -8,21 +8,22 @@ import {filterArticleSelector} from "../../selectors/index";
 
 export class ArticleList extends React.Component {
     static propTypes = {
-        articles: PropTypes.arrayOf(PropTypes.shape({
-            id: PropTypes.string,
-            title: PropTypes.string,
-            date: PropTypes.string,
-            text: PropTypes.string,
-            comments: PropTypes.array
-        }))
+        articles: PropTypes.array.isRequired
+        // articles: PropTypes.arrayOf(PropTypes.shape({
+        //     id: PropTypes.string,
+        //     title: PropTypes.string,
+        //     date: PropTypes.string,
+        //     text: PropTypes.string,
+        //     comments: PropTypes.array
+        // }))
     };
 
     get items() {
-        return this.props.articles.map(item => {
-            return <li key={item.id} className="test--article-list__item">
+        return this.props.articles.map(articleId => {
+            return <li key={articleId} className="test--article-list__item">
                 <Article
-                    article = {item}
-                    isOpen = {this.props.openItemId === item.id}
+                    id = {articleId}
+                    isOpen = {this.props.openItemId === articleId}
                     toggleOpenClose = {this.props.toggleOpenCloseItem}
                 />
             </li>;

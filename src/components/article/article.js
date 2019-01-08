@@ -4,7 +4,8 @@ import CommentList from '../comment-list/comment-list';
 import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import './style.css';
-import {deleteArticleAC} from '../../store/ac'
+import {deleteArticleAC} from '../../store/ac';
+import {articleSelector} from "../../selectors/index";
 
 class Article extends React.PureComponent {
     static propTypes = {
@@ -81,7 +82,13 @@ class Article extends React.PureComponent {
     }
 }
 
+const mapStateToProps = (state, ownProps) => {
+  return {
+      article:  articleSelector(state, ownProps)
+  }
+};
+
 export default connect(
-    null,
+    mapStateToProps,
     {dispatchDeleteArticle: deleteArticleAC}
     )(Article);
