@@ -1,6 +1,6 @@
 import {createStore, applyMiddleware, compose   } from 'redux';
 import reducer from './reducers';
-import logger from '../middleware';
+import { logger, createComment } from '../middleware';
 
 const composeEnhancers =
     typeof window === 'object' &&
@@ -10,7 +10,7 @@ const composeEnhancers =
         }) : compose;
 
 const enhancer = composeEnhancers(
-    applyMiddleware(logger),
+    applyMiddleware(logger, createComment),
     // other store enhancers if any
 );
 

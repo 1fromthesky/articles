@@ -2,7 +2,8 @@ import {
     INCREMENT,
     DELETE_ARTICLE,
     CHANGE_DATE_RANGE,
-    CHANGE_SELECTION
+    CHANGE_SELECTION,
+    CREATE_COMMENT
 } from '../../constants/index'
 
 export function incrementAC() {
@@ -27,5 +28,12 @@ export function changeSelectionAC(selected) {
     return {
         type: CHANGE_SELECTION,
         payload: { selected }
+    }
+}
+
+export const createCommentAC = (comment) => {
+    return {
+        type: CREATE_COMMENT,
+        payload: { comment }
     }
 }
