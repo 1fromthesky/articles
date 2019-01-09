@@ -12,7 +12,7 @@ class CommentForm extends Component {
       text: elemForm.text.value
     }
 
-    this.props.createComment(newComment);
+    this.props.createComment(newComment, this.props.articleId);
   }
 
   render() {

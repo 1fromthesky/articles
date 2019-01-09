@@ -31,9 +31,9 @@ export function changeSelectionAC(selected) {
     }
 }
 
-export const createCommentAC = (comment) => {
+export const createCommentAC = (comment, articleId) => {
     return {
         type: CREATE_COMMENT,
-        payload: { comment }
+        payload: { comment, articleId }
     }
 }

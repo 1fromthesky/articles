@@ -42,7 +42,9 @@ class Article extends React.PureComponent {
             <section key={article.id} className="test--article__body">
                 {article.text}
                 {this.state.error ? null : <CommentList comments = {article.comments}/>}
-                <CommentForm/>
+                <CommentForm
+                    articleId = {this.props.id}
+                />
             </section>
         );
     }
