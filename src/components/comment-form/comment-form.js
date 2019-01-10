@@ -7,12 +7,19 @@ class CommentForm extends Component {
     const elemForm = event.target.elements;
     event.preventDefault();
 
+    if (!elemForm.user.value.trim() || !elemForm.text.value.trim()) {
+      alert(`New comment is wrong. Check your comment`);
+      return;
+    }
+    
     const newComment = {
       user: elemForm.user.value,
       text: elemForm.text.value
     }
 
     this.props.createComment(newComment, this.props.articleId);
+    elemForm.user.value = ``;
+    elemForm.text.value = ``;
   }
 
   render() {
