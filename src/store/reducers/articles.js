@@ -1,13 +1,18 @@
 import {DELETE_ARTICLE, ADD_COMMENT} from '../../constants';
-import {normalizedArticles} from '../../fixtures';
-import { Map, fromJS } from 'immutable';
+import {normalizedArticles as defaultArticles} from '../../fixtures';
+import { Record } from 'immutable';
+import {arrToMap} from '../../utils';
 
-const defaultArticles = normalizedArticles.reduce((acc, article) => {
-    acc[article.id] = article;
-    return acc;
-}, {});
+const articleRecord = Record({
+    id: null,
+    title: null,
+    text: null,
+    date: null,
+    comments: [],
+    
+})
 
-export default (articles = fromJS(defaultArticles), action) => {
+export default (articles = arrToMap(defaultArticles, articleRecord), action) => {
     const { type, payload, newCommentId } = action;
 
     switch (type) {
