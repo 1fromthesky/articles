@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Select from 'react-select'
 import { connect } from 'react-redux'
 import { changeSelectionAC } from '../../store/ac'
-import {filtersSelector, articlesSelector} from "../../selectors/index";
+import {filtersSelector, articleListSelector} from "../../selectors/index";
 
 class SelectFilter extends Component {
     render() {
@@ -17,7 +17,7 @@ class SelectFilter extends Component {
     }
 
     get optionsForSelect() {
-        return Object.values(this.props.articles).map((item) => ({
+        return this.props.articles.map((item) => ({
             value: item.id,
             label: item.title
         }))
@@ -31,7 +31,7 @@ class SelectFilter extends Component {
 export default connect(
     (state) => ({
         selected: filtersSelector(state).selected,
-        articles: articlesSelector(state)
+        articles: articleListSelector(state)
     }),
     { changeSelection: changeSelectionAC }
 )(SelectFilter)

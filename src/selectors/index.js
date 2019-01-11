@@ -15,60 +15,30 @@ export const createCommentSelector = () => {
 
 
 export const filtersSelector = state => state.filters;
-export const articlesSelector = state => state.articles;
+export const articlesMapSelector = (state) => state.articles;
+export const articleListSelector = createSelector(
+  articlesMapSelector,
+  (articlesMap) => articlesMap.valueSeq().toJS()
+)
 
-export const filterArticleSelector = createSelector(
-    filtersSelector, articlesSelector,
+export const filteredArticleSelector = createSelector(
+    filtersSelector,
+    articleListSelector,
     (filters, articles) => {
-        const {
-            selected,
-            dateRange: { from, to }
-        } = filters;
+      const {
+        selected,
+        dateRange: { from, to }
+      } = filters;
 
-        // const filteredArticles = {};
-        // for (let key in articles) {
-        //     const article = articles[key];
-        //     const published = Date.parse(article.date);
-        //     const checkFilter = (
-        //         (!selected.length ||
-        //             selected.find((selected) => selected.value === article.id)) &&
-        //         (!from || !to || (published > from && published < to))
-        //     );
-        //
-        //     if (checkFilter) {
-        //         filteredArticles[key] = article;
-        //     }
-        // }
-        //
-        // return Object.keys(filteredArticles);
-
-        const keysArticles = Object.keys(articles);
-
-        return keysArticles.filter((articleId) => {
-            const article = articles[articleId];
-            const published = Date.parse(article.date);
-
-            return (
-                (!selected.length ||
-                    selected.find((selected) => selected.value === article.id)) &&
-                (!from || !to || (published > from && published < to))
-            )
-        })
+  
+      return articles.filter((article) => {
+        const published = Date.parse(article.date);
+  
+        return (
+          (!selected.length ||
+            selected.find((selected) => selected.value === article.id)) &&
+          (!from || !to || (published > from && published < to))
+        )
+      })
     }
-);
-
-export const articleSelector = createSelector (
-    articlesSelector,
-    idSelector,  (articles, id) => {
-        return articles[id];
-    }
-);
-
-// export const articleSelector = () => {
-//     return createSelector (
-//         articlesSelector,
-//         idSelector,  (articles, id) => {
-//             return articles[id];
-//         }
-//     )
-// };
+  )

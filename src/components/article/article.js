@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import './style.css';
 import {deleteArticleAC} from '../../store/ac';
-import {articleSelector} from "../../selectors/index";
+
 
 
 class Article extends React.PureComponent {
@@ -41,7 +41,7 @@ class Article extends React.PureComponent {
         return (
             <section key={article.id} className="test--article__body">
                 {article.text}
-                {this.state.error ? null : <CommentList comments = {article.comments} articleId = {this.props.id}/>}
+                {this.state.error ? null : <CommentList comments = {article.comments} articleId = {article.id}/>}
 
             </section>
         );
@@ -84,13 +84,7 @@ class Article extends React.PureComponent {
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-      article:  articleSelector(state, ownProps)
-  }
-};
-
 export default connect(
-    mapStateToProps,
+    null,
     {dispatchDeleteArticle: deleteArticleAC}
     )(Article);

@@ -1,31 +1,34 @@
 import {DELETE_ARTICLE, ADD_COMMENT} from '../../constants';
 import {normalizedArticles} from '../../fixtures';
+import { Map, fromJS } from 'immutable';
 
 const defaultArticles = normalizedArticles.reduce((acc, article) => {
     acc[article.id] = article;
     return acc;
 }, {});
 
-export default (articleState = defaultArticles, action) => {
+export default (articles = fromJS(defaultArticles), action) => {
     const { type, payload, newCommentId } = action;
 
     switch (type) {
         case DELETE_ARTICLE: {
-            const newArticlesState = Object.assign({}, articleState);
-            delete newArticlesState[payload.id];
-            return newArticlesState;
+            return articles.delete(payload.id);
         }
         case ADD_COMMENT: {
-            const article = articleState[payload.articleId];
-            return {
-              ...articleState,
-              [payload.articleId]: {
-                ...article,
-                comments: (article.comments || []).concat(newCommentId)
-              }
-            }
+           return articles.updateIn(
+                [payload.articleId, `comments`],
+                (comments) => comments.concat(newCommentId) 
+            )
+            // const article = articles[payload.articleId];
+            // return {
+            //   ...articles,
+            //   [payload.articleId]: {
+            //     ...article,
+            //     comments: (article.comments || []).concat(newCommentId)
+            //   }
+            // }
         }
         default:
-            return articleState
+            return articles
     }
 }
