@@ -6,7 +6,7 @@ import CSSTransitionGroup from 'react-addons-css-transition-group';
 import './style.css';
 import {deleteArticleAC} from '../../store/ac';
 import {articleSelector} from "../../selectors/index";
-import CommentForm from '../comment-form';
+
 
 class Article extends React.PureComponent {
     static propTypes = {
@@ -41,10 +41,8 @@ class Article extends React.PureComponent {
         return (
             <section key={article.id} className="test--article__body">
                 {article.text}
-                {this.state.error ? null : <CommentList comments = {article.comments}/>}
-                <CommentForm
-                    articleId = {this.props.id}
-                />
+                {this.state.error ? null : <CommentList comments = {article.comments} articleId = {this.props.id}/>}
+
             </section>
         );
     }

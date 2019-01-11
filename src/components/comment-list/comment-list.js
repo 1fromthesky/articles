@@ -4,6 +4,7 @@ import showOrHideElem from '../../decorators/show-or-hide-elem';
 import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import './style.css';
+import CommentForm from '../comment-form';
 
 class CommentList extends React.Component {
     static propTypes = {
@@ -42,7 +43,7 @@ class CommentList extends React.Component {
     };
 
     render() {
-        const {isShow} = this.props;
+        const {isShow, articleId} = this.props;
         const buttonTitle = isShow ? `Hide Comments` : `Show Comments`;
 
         return (
@@ -56,6 +57,10 @@ class CommentList extends React.Component {
                     transitionLeaveTimeout={300}
                 >
                     {this.commentsBody}
+
+                    <CommentForm
+                        articleId = {articleId}
+                    />
                 </CSSTransitionGroup>
             </div>
         );

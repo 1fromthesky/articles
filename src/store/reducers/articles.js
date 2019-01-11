@@ -1,4 +1,4 @@
-import {DELETE_ARTICLE, CREATE_COMMENT} from '../../constants';
+import {DELETE_ARTICLE, ADD_COMMENT} from '../../constants';
 import {normalizedArticles} from '../../fixtures';
 
 const defaultArticles = normalizedArticles.reduce((acc, article) => {
@@ -7,18 +7,23 @@ const defaultArticles = normalizedArticles.reduce((acc, article) => {
 }, {});
 
 export default (articleState = defaultArticles, action) => {
-    switch (action.type) {
+    const { type, payload, newCommentId } = action;
+
+    switch (type) {
         case DELETE_ARTICLE: {
             const newArticlesState = Object.assign({}, articleState);
-            delete newArticlesState[action.payload.id];
+            delete newArticlesState[payload.id];
             return newArticlesState;
         }
-        case CREATE_COMMENT: {
-            const newArticlesState = Object.assign({}, articleState);
-            const newArticleState = Object.assign({}, articleState[action.payload.articleId]);
-            newArticleState.comments.push(action.payload.comment.id);
-            newArticlesState[action.payload.articleId] = newArticleState;
-            return newArticlesState;
+        case ADD_COMMENT: {
+            const article = articleState[payload.articleId];
+            return {
+              ...articleState,
+              [payload.articleId]: {
+                ...article,
+                comments: (article.comments || []).concat(newCommentId)
+              }
+            }
         }
         default:
             return articleState

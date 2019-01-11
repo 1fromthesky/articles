@@ -1,48 +1,73 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createCommentAC } from '../../store/ac';
+import { addCommentAC } from '../../store/ac';
+import './style.css';
+
+const limits = {
+  user: {
+    min: 3,
+    max: 10
+  },
+  text: {
+    min: 3,
+    max: 50
+  }
+}
 
 class CommentForm extends Component {
-  onCreateComment = (event) => {
-    const elemForm = event.target.elements;
-    event.preventDefault();
+  static propTypes = {}
 
-    if (!elemForm.user.value.trim() || !elemForm.text.value.trim()) {
-      alert(`New comment is wrong. Check your comment`);
-      return;
-    }
-    
-    const newComment = {
-      user: elemForm.user.value,
-      text: elemForm.text.value
-    }
+  state = {
+    user: '',
+    text: ''
+  }
 
-    this.props.createComment(newComment, this.props.articleId);
-    elemForm.user.value = ``;
-    elemForm.text.value = ``;
+  handleSubmit = (ev) => {
+    ev.preventDefault()
+    this.props.addComment(this.state)
+    this.setState({
+      user: '',
+      text: ''
+    })
+  }
+
+  isValidForm = () => ['user', 'text'].every(this.isValidField)
+  isValidField = (type) => this.state[type].length >= limits[type].min
+  getClassName = (type) => (this.isValidField(type) ? '' : 'form-input__error')
+
+  handleChange = (type) => (ev) => {
+    const { value } = ev.target
+    if (value.length > limits[type].max) return
+    this.setState({
+      [type]: value
+    })
   }
 
   render() {
     return (
+
+      <form onSubmit={this.handleSubmit}>
       <div>
-        <form onSubmit={this.onCreateComment}>
-          <div>          
-            Name:
-            <input
-              name="user"
-            />
-          </div>
-          <div>    
-            Text:
-            ​<textarea 
-              name="text"
-              rows="5" 
-              cols="50"
-              />
-          </div>
-          <input type="submit"/>
-        </form>
-      </div>
+        user:
+        </div>
+        <input
+          value={this.state.user}
+          onChange={this.handleChange('user')}
+          className={this.getClassName('user')}
+        />
+
+        <div>
+        comment:{' '}
+        </div>
+        <div>
+        <textarea
+          value={this.state.text}
+          onChange={this.handleChange('text')}
+          className={this.getClassName('text')}
+        />
+        </div>
+        <input type="submit" value="submit" disabled={!this.isValidForm()} />
+      </form>
     )
   }
 }
@@ -50,5 +75,8 @@ class CommentForm extends Component {
 
 
 export default connect(
-null, {createComment: createCommentAC}
+  null,
+  (dispatch, ownProps) => ({
+    addComment: (comment) => dispatch(addCommentAC(comment, ownProps.articleId))
+  })
 )(CommentForm);

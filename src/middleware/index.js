@@ -1,5 +1,3 @@
-import {CREATE_COMMENT} from '../constants';
-
 export const logger = store => next => action => {
     console.log(`begin`, store.getState());
     console.log(`dispatch action`, action);
@@ -8,8 +6,9 @@ export const logger = store => next => action => {
 }
 
 export const createComment = store => next => action => {
-    if (action.type === CREATE_COMMENT) {
-        action.payload.comment.id = Math.random().toString(36).substr(2, 9);
-    }
-    next(action);
+    if (!action.generateId) return next(action)
+    next({
+      ...action,
+      newCommentId: (Date.now() + Math.random()).toString()
+    })
 }

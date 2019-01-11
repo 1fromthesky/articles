@@ -10,7 +10,7 @@ const composeEnhancers =
         }) : compose;
 
 const enhancer = composeEnhancers(
-    applyMiddleware(logger, createComment),
+    applyMiddleware(createComment, logger),
     // other store enhancers if any
 );
 
