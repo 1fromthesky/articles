@@ -1,1 +1,1 @@
-export {default} from './user-form';
+export { default } from './user-form'

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { addCommentAC } from '../../store/ac';
-import './style.css';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { addCommentAC } from '../../store/ac'
+import './style.css'
 
 const limits = {
   user: {
@@ -45,26 +45,21 @@ class CommentForm extends Component {
 
   render() {
     return (
-
       <form onSubmit={this.handleSubmit}>
-      <div>
-        user:
-        </div>
+        <div>user:</div>
         <input
           value={this.state.user}
           onChange={this.handleChange('user')}
           className={this.getClassName('user')}
         />
 
+        <div>comment: </div>
         <div>
-        comment:{' '}
-        </div>
-        <div>
-        <textarea
-          value={this.state.text}
-          onChange={this.handleChange('text')}
-          className={this.getClassName('text')}
-        />
+          <textarea
+            value={this.state.text}
+            onChange={this.handleChange('text')}
+            className={this.getClassName('text')}
+          />
         </div>
         <input type="submit" value="submit" disabled={!this.isValidForm()} />
       </form>
@@ -72,11 +67,9 @@ class CommentForm extends Component {
   }
 }
 
-
-
 export default connect(
   null,
   (dispatch, ownProps) => ({
     addComment: (comment) => dispatch(addCommentAC(comment, ownProps.articleId))
   })
-)(CommentForm);
+)(CommentForm)
