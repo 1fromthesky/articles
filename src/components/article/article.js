@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
 import './style.css'
 import { deleteArticleAC, loadArticle } from '../../store/ac'
-import Loader from '../common/loader'
+// import Loader from '../common/loader'
 
 class Article extends React.PureComponent {
   static propTypes = {

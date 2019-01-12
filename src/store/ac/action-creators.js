@@ -5,7 +5,10 @@ import {
   CHANGE_SELECTION,
   ADD_COMMENT,
   LOAD_ALL_ARTICLES,
-  LOAD_ARTICLE
+  LOAD_ARTICLE,
+  START,
+  SUCCESS,
+  FAIL
 } from '../../constants'
 
 export const incrementAC = () => {
@@ -48,10 +51,35 @@ export const loadAllArticlesAC = () => {
   }
 }
 
+// export const loadArticle = (id) => {
+//   return {
+//     type: LOAD_ARTICLE,
+//     payload: { id },
+//     callAPI: `/api/article/${id}`
+//   }
+// }
+
 export const loadArticle = (id) => {
-  return {
-    type: LOAD_ARTICLE,
-    payload: { id },
-    callAPI: `/api/article/${id}`
+  return (dicpatch) => {
+    dicpatch({
+      payload: { id },
+      type: LOAD_ARTICLE + START
+    })
+
+    fetch(`/api/article/${id}`)
+      .then((res) => res.json())
+      .then((responce) => {
+        dicpatch({
+          payload: responce,
+          type: LOAD_ARTICLE + SUCCESS
+        })
+      })
+      .catch((error) => {
+        dicpatch({
+          error,
+          payload: { id },
+          type: LOAD_ARTICLE + FAIL
+        })
+      })
   }
 }
