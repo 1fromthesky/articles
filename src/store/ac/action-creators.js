@@ -4,8 +4,9 @@ import {
   CHANGE_DATE_RANGE,
   CHANGE_SELECTION,
   ADD_COMMENT,
-  LOAD_ALL_ARTICLES
-} from '../../constants/index'
+  LOAD_ALL_ARTICLES,
+  LOAD_ARTICLE
+} from '../../constants'
 
 export const incrementAC = () => {
   return { type: INCREMENT }
@@ -40,9 +41,17 @@ export const addCommentAC = (comment, articleId) => {
   }
 }
 
-export const loadArticlesAC = () => {
+export const loadAllArticlesAC = () => {
   return {
     type: LOAD_ALL_ARTICLES,
     callAPI: `/api/article`
+  }
+}
+
+export const loadArticle = (id) => {
+  return {
+    type: LOAD_ARTICLE,
+    payload: { id },
+    callAPI: `/api/article/${id}`
   }
 }

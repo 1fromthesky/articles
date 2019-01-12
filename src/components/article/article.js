@@ -4,7 +4,8 @@ import CommentList from '../comment-list/comment-list'
 import PropTypes from 'prop-types'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
 import './style.css'
-import { deleteArticleAC } from '../../store/ac'
+import { deleteArticleAC, loadArticle } from '../../store/ac'
+import Loader from '../common/loader'
 
 class Article extends React.PureComponent {
   static propTypes = {
@@ -75,6 +76,12 @@ class Article extends React.PureComponent {
     )
   }
 
+  componentDidUpdate(oldProps) {
+    const { isOpen, loadArticle, article } = this.props
+
+    if (isOpen && !oldProps.isOpen) loadArticle(article.id)
+  }
+
   componentDidCatch(error) {
     this.setState({ error })
   }
@@ -82,5 +89,5 @@ class Article extends React.PureComponent {
 
 export default connect(
   null,
-  { dispatchDeleteArticle: deleteArticleAC }
+  { dispatchDeleteArticle: deleteArticleAC, loadArticle }
 )(Article)

@@ -2,11 +2,11 @@ import {
   DELETE_ARTICLE,
   ADD_COMMENT,
   LOAD_ALL_ARTICLES,
+  LOAD_ARTICLE,
   START,
   SUCCESS,
   FAIL
 } from '../../constants'
-import { normalizedArticles as defaultArticles } from '../../fixtures'
 import { Record } from 'immutable'
 import { arrToMap } from '../../utils'
 
@@ -44,11 +44,17 @@ export default (articles = new ReducerRecord(), action) => {
     case LOAD_ALL_ARTICLES + SUCCESS: {
       return articles
         .set(`entities`, arrToMap(action.responce, ArticleRecord))
-        .set(`loadig`, false)
+        .set(`loading`, false)
         .set(`loaded`, true)
     }
     case LOAD_ALL_ARTICLES + FAIL: {
       return articles.set(`error`, action.error).set(`loading`, false)
+    }
+    case LOAD_ARTICLE + SUCCESS: {
+      return articles.setIn(
+        [`entities`, payload.id],
+        new ArticleRecord(action.responce)
+      )
     }
     default:
       return articles

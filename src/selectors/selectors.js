@@ -13,7 +13,8 @@ export const createCommentSelector = () => {
   )
 }
 
-export const articleLoadingSelector = (state) => state.articles.loadig
+export const articleLoadingSelector = (state) => state.articles.loading
+export const articleLoadedSelector = (state) => state.articles.loaded
 export const filtersSelector = (state) => state.filters
 export const articlesMapSelector = (state) => state.articles.entities
 export const articleListSelector = createSelector(

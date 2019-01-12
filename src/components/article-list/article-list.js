@@ -6,9 +6,10 @@ import accordion from '../../decorators/accordion'
 import PropTypes from 'prop-types'
 import {
   filteredArticleSelector,
-  articleLoadingSelector
+  articleLoadingSelector,
+  articleLoadedSelector
 } from '../../selectors'
-import { loadArticlesAC } from '../../store/ac'
+import { loadAllArticlesAC } from '../../store/ac'
 
 export class ArticleList extends React.Component {
   static propTypes = {
@@ -21,7 +22,7 @@ export class ArticleList extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchData && this.props.fetchData()
+    articleLoadedSelector && this.props.fetchData && this.props.fetchData()
   }
 
   get items() {
@@ -48,13 +49,14 @@ export class ArticleList extends React.Component {
 const mapStateToProps = (state) => {
   return {
     articles: filteredArticleSelector(state),
-    loading: articleLoadingSelector(state)
+    loading: articleLoadingSelector(state),
+    loaded: articleLoadedSelector(state)
   }
 }
 
 export default connect(
   mapStateToProps,
   {
-    fetchData: loadArticlesAC
+    fetchData: loadAllArticlesAC
   }
 )(accordion(ArticleList))
