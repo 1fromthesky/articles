@@ -1,50 +1,60 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import Article from '../article/index';
-import accordion from '../../decorators/accordion';
-import PropTypes from 'prop-types';
-import {filteredArticleSelector} from "../../selectors/index";
-
+import React from 'react'
+import { connect } from 'react-redux'
+import Article from '../article/index'
+import Loader from '../common/loader'
+import accordion from '../../decorators/accordion'
+import PropTypes from 'prop-types'
+import {
+  filteredArticleSelector,
+  articleLoadingSelector
+} from '../../selectors'
+import { loadArticlesAC } from '../../store/ac'
 
 export class ArticleList extends React.Component {
-    static propTypes = {
-        articles: PropTypes.array.isRequired
-        // articles: PropTypes.arrayOf(PropTypes.shape({
-        //     id: PropTypes.string,
-        //     title: PropTypes.string,
-        //     date: PropTypes.string,
-        //     text: PropTypes.string,
-        //     comments: PropTypes.array
-        // }))
-    };
+  static propTypes = {
+    articles: PropTypes.array.isRequired,
+    fetchData: PropTypes.func,
 
-    get items() {
-        return this.props.articles.map(article => {
-            return <li key={article.id} className="test--article-list__item">
-                <Article
-                    article = {article}
-                    isOpen = {this.props.openItemId === article.id}
-                    toggleOpenClose = {this.props.toggleOpenCloseItem}
-                />
-            </li>;
-        });
-    }
+    //from accordion decorator
+    openItemId: PropTypes.string,
+    toggleOpenCloseItem: PropTypes.func.isRequired
+  }
 
-    render() {
-        return (
-            <ul>
-                {this.items}
-            </ul>
-        );
-    }
+  componentDidMount() {
+    this.props.fetchData && this.props.fetchData()
+  }
+
+  get items() {
+    return this.props.articles.map((article) => {
+      return (
+        <li key={article.id} className="test--article-list__item">
+          <Article
+            article={article}
+            isOpen={this.props.openItemId === article.id}
+            toggleOpenClose={this.props.toggleOpenCloseItem}
+          />
+        </li>
+      )
+    })
+  }
+
+  render() {
+    if (this.props.loading) return <Loader />
+
+    return <ul>{this.items}</ul>
+  }
 }
 
 const mapStateToProps = (state) => {
-    return {
-        articles: filteredArticleSelector(state)
-    }
-};
+  return {
+    articles: filteredArticleSelector(state),
+    loading: articleLoadingSelector(state)
+  }
+}
 
 export default connect(
-    mapStateToProps
-    )(accordion(ArticleList));
+  mapStateToProps,
+  {
+    fetchData: loadArticlesAC
+  }
+)(accordion(ArticleList))
