@@ -5,7 +5,8 @@ import PropTypes from 'prop-types'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
 import './style.css'
 import { deleteArticleAC, loadArticle } from '../../store/ac'
-// import Loader from '../common/loader'
+import { articleLoadedSelector } from '../../selectors'
+import Loader from '../common/loader'
 
 class Article extends React.PureComponent {
   static propTypes = {
@@ -37,6 +38,7 @@ class Article extends React.PureComponent {
   get articleBody() {
     const { article, isOpen } = this.props
     if (!isOpen) return null
+    if (!this.props.loaded) return <Loader />
     return (
       <section key={article.id} className="test--article__body">
         {article.text}
@@ -79,7 +81,9 @@ class Article extends React.PureComponent {
   componentDidUpdate(oldProps) {
     const { isOpen, loadArticle, article } = this.props
 
-    if (isOpen && !oldProps.isOpen) loadArticle(article.id)
+    if (isOpen && !oldProps.isOpen) {
+      loadArticle(article.id)
+    }
   }
 
   componentDidCatch(error) {
@@ -87,7 +91,13 @@ class Article extends React.PureComponent {
   }
 }
 
+const mapStateToProps = (state, ownProps) => {
+  return {
+    loaded: articleLoadedSelector(state, ownProps)
+  }
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   { dispatchDeleteArticle: deleteArticleAC, loadArticle }
 )(Article)

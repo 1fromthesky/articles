@@ -2,7 +2,12 @@ import React, { Component } from 'react'
 import Select from 'react-select'
 import { connect } from 'react-redux'
 import { changeSelectionAC } from '../../store/ac'
-import { filtersSelector, articleListSelector } from '../../selectors/index'
+import {
+  filtersSelector,
+  articleListSelector,
+  articlesLoadingSelector,
+  articlesLoadedSelector
+} from '../../selectors/index'
 
 class SelectFilter extends Component {
   render() {
@@ -17,6 +22,14 @@ class SelectFilter extends Component {
   }
 
   get optionsForSelect() {
+    if (this.props.loading) {
+      return [
+        {
+          value: `loading`,
+          label: `loading`
+        }
+      ]
+    }
     return this.props.articles.map((item) => ({
       value: item.id,
       label: item.title
@@ -31,7 +44,9 @@ class SelectFilter extends Component {
 export default connect(
   (state) => ({
     selected: filtersSelector(state).selected,
-    articles: articleListSelector(state)
+    articles: articleListSelector(state),
+    loading: articlesLoadingSelector(state),
+    loaded: articlesLoadedSelector(state)
   }),
   { changeSelection: changeSelectionAC }
 )(SelectFilter)

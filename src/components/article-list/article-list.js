@@ -6,8 +6,8 @@ import accordion from '../../decorators/accordion'
 import PropTypes from 'prop-types'
 import {
   filteredArticleSelector,
-  articleLoadingSelector,
-  articleLoadedSelector
+  articlesLoadingSelector,
+  articlesLoadedSelector
 } from '../../selectors'
 import { loadAllArticlesAC } from '../../store/ac'
 
@@ -22,7 +22,7 @@ export class ArticleList extends React.Component {
   }
 
   componentDidMount() {
-    articleLoadedSelector && this.props.fetchData && this.props.fetchData()
+    !this.props.loaded && this.props.fetchData && this.props.fetchData()
   }
 
   get items() {
@@ -49,8 +49,8 @@ export class ArticleList extends React.Component {
 const mapStateToProps = (state) => {
   return {
     articles: filteredArticleSelector(state),
-    loading: articleLoadingSelector(state),
-    loaded: articleLoadedSelector(state)
+    loading: articlesLoadingSelector(state),
+    loaded: articlesLoadedSelector(state)
   }
 }
 

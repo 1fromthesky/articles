@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
 
-export const commentsSelector = (state) => state.comments
 export const idSelector = (_, props) => props.id
+export const commentsSelector = (state) => state.comments
 
 export const createCommentSelector = () => {
   return createSelector(
@@ -13,9 +13,9 @@ export const createCommentSelector = () => {
   )
 }
 
-export const articleLoadingSelector = (state) => state.articles.loading
-export const articleLoadedSelector = (state) => state.articles.loaded
 export const filtersSelector = (state) => state.filters
+export const articlesLoadingSelector = (state) => state.articles.loading
+export const articlesLoadedSelector = (state) => state.articles.loaded
 export const articlesMapSelector = (state) => state.articles.entities
 export const articleListSelector = createSelector(
   articlesMapSelector,
@@ -42,3 +42,7 @@ export const filteredArticleSelector = createSelector(
     })
   }
 )
+
+export const articleLoadedSelector = (state, props) => {
+  return state.articles.getIn([`entities`, props.article.id]).loaded
+}

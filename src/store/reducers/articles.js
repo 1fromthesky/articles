@@ -15,7 +15,8 @@ const ArticleRecord = Record({
   title: null,
   text: null,
   date: null,
-  comments: []
+  comments: [],
+  loaded: undefined
 })
 
 const ReducerRecord = Record({
@@ -38,6 +39,7 @@ export default (articles = new ReducerRecord(), action) => {
         (comments) => comments.concat(newCommentId)
       )
     }
+    // All articles
     case LOAD_ALL_ARTICLES + START: {
       return articles.set(`loading`, true)
     }
@@ -50,11 +52,17 @@ export default (articles = new ReducerRecord(), action) => {
     case LOAD_ALL_ARTICLES + FAIL: {
       return articles.set(`error`, action.error).set(`loading`, false)
     }
+    // Article
+    case LOAD_ARTICLE + START: {
+      return articles.setIn([`entities`, payload.id, `loaded`], false)
+    }
     case LOAD_ARTICLE + SUCCESS: {
-      return articles.setIn(
-        [`entities`, payload.id],
-        new ArticleRecord(action.payload)
-      )
+      return articles
+        .setIn([`entities`, payload.id], new ArticleRecord(action.payload))
+        .setIn([`entities`, payload.id, `loaded`], true)
+    }
+    case LOAD_ARTICLE + FAIL: {
+      return articles.set(`error`, action.error).set(`loading`, false)
     }
     default:
       return articles
