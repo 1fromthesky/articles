@@ -26,7 +26,10 @@ export default (comments = new ReducerRecord(), action) => {
 
   switch (type) {
     case ADD_COMMENT: {
-      return comments.set(newCommentId, { ...payload, id: newCommentId })
+      return comments.setIn(
+        [`entities`, newCommentId],
+        new CommentRecord({ ...payload.comment, id: newCommentId })
+      )
     }
     case LOAD_ALL_COMMENTS + START: {
       return comments.set(`loading`, true)
