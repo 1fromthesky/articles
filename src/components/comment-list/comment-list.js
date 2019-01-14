@@ -6,11 +6,12 @@ import PropTypes from 'prop-types'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
 import './style.css'
 import CommentForm from '../comment-form'
+import { loadAllComments } from '../../store/ac'
 import {
-  loadAllComments,
   commentsLoadingSelector,
   commentsLoadedSelector
-} from '../../store/ac'
+} from '../../selectors'
+import Loader from '../common/loader'
 
 class CommentList extends React.Component {
   static propTypes = {
@@ -28,12 +29,20 @@ class CommentList extends React.Component {
 
     this.onToggle = () => {
       this.props.toggleHideShow()
+      if (!this.props.loaded) {
+        this.props.loadAllComments()
+        return <Loader />
+      }
     }
   }
 
   get commentsBody() {
-    const { isShow } = this.props
+    const { isShow, loading } = this.props
     if (!isShow) return null
+
+    if (loading) {
+      return <Loader />
+    }
 
     const body = this.props.comments.map((commentId) => {
       return (
@@ -55,6 +64,7 @@ class CommentList extends React.Component {
         <button onClick={this.onToggle} className={`test--comments__button`}>
           {buttonTitle}
         </button>
+
         <CSSTransitionGroup
           transitionName="comments"
           transitionEnterTimeout={500}
@@ -66,10 +76,6 @@ class CommentList extends React.Component {
         </CSSTransitionGroup>
       </div>
     )
-  }
-
-  componentDidMount() {
-    this.props.loadAllComments()
   }
 }
 
