@@ -79,9 +79,9 @@ class Article extends React.PureComponent {
   }
 
   componentDidUpdate(oldProps) {
-    const { isOpen, loadArticle, article } = this.props
+    const { isOpen, loadArticle, article, loaded } = this.props
 
-    if (isOpen && !oldProps.isOpen) {
+    if (isOpen && !oldProps.isOpen && !loaded) {
       loadArticle(article.id)
     }
   }
