@@ -1,10 +1,16 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Comment from '../comment/index'
 import showOrHideElem from '../../decorators/show-or-hide-elem'
 import PropTypes from 'prop-types'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
 import './style.css'
 import CommentForm from '../comment-form'
+import {
+  loadAllComments,
+  commentsLoadingSelector,
+  commentsLoadedSelector
+} from '../../store/ac'
 
 class CommentList extends React.Component {
   static propTypes = {
@@ -61,6 +67,22 @@ class CommentList extends React.Component {
       </div>
     )
   }
+
+  componentDidMount() {
+    this.props.loadAllComments()
+  }
 }
 
-export default showOrHideElem(CommentList)
+const mapStateToProps = (state) => {
+  return {
+    loading: commentsLoadingSelector(state),
+    loaded: commentsLoadedSelector(state)
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  {
+    loadAllComments
+  }
+)(showOrHideElem(CommentList))

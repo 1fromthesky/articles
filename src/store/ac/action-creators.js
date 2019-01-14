@@ -6,6 +6,7 @@ import {
   ADD_COMMENT,
   LOAD_ALL_ARTICLES,
   LOAD_ARTICLE,
+  LOAD_ALL_COMMENTS,
   START,
   SUCCESS,
   FAIL
@@ -81,5 +82,12 @@ export const loadArticle = (id) => {
           type: LOAD_ARTICLE + FAIL
         })
       })
+  }
+}
+
+export const loadAllComments = () => {
+  return {
+    type: LOAD_ALL_COMMENTS,
+    callAPI: `/api/comment`
   }
 }

@@ -17,3 +17,5 @@ export const SUCCESS = `_SUCCESS`
 export const FAIL = `_FAIL`
 
 export const LOAD_ARTICLE = `LOAD_ARTICLE`
+
+export const LOAD_ALL_COMMENTS = `LOAD_ALL_COMMENTS`

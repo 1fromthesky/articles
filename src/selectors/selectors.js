@@ -1,11 +1,14 @@
 import { createSelector } from 'reselect'
 
 export const idSelector = (_, props) => props.id
-export const commentsSelector = (state) => state.comments
+
+export const commentsMapSelector = (state) => state.comments.entities
+export const commentsLoadingSelector = (state) => state.comments.loading
+export const commentsLoadedSelector = (state) => state.comments.loaded
 
 export const createCommentSelector = () => {
   return createSelector(
-    commentsSelector,
+    commentsMapSelector,
     idSelector,
     (comments, id) => {
       return comments.get(id)
