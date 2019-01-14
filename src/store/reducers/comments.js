@@ -36,7 +36,7 @@ export default (comments = new ReducerRecord(), action) => {
     }
     case LOAD_ALL_COMMENTS + SUCCESS: {
       return comments
-        .set(`entities`, arrToMap(action.responce.records, CommentRecord))
+        .set(`entities`, arrToMap(action.responce, CommentRecord))
         .set(`loading`, false)
         .set(`loaded`, true)
     }

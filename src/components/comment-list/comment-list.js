@@ -30,7 +30,7 @@ class CommentList extends React.Component {
     this.onToggle = () => {
       this.props.toggleHideShow()
       if (!this.props.loaded) {
-        this.props.loadAllComments()
+        this.props.loadAllComments(this.props.articleId)
       }
     }
   }

@@ -85,9 +85,9 @@ export const loadArticle = (id) => {
   }
 }
 
-export const loadAllComments = () => {
+export const loadAllComments = (articleId) => {
   return {
     type: LOAD_ALL_COMMENTS,
-    callAPI: `/api/comment`
+    callAPI: `/api/comment?article=${articleId}`
   }
 }
