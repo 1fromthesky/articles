@@ -37,7 +37,7 @@ class CommentList extends React.Component {
   }
 
   get commentsBody() {
-    const { isShow, loading } = this.props
+    const { isShow, articleId, loading } = this.props
     if (!isShow) return null
 
     if (loading) {
@@ -52,11 +52,16 @@ class CommentList extends React.Component {
       )
     })
 
-    return <ul className="test--comments__body">{body}</ul>
+    return (
+      <div>
+        <ul className="test--comments__body">{body}</ul>
+        <CommentForm articleId={articleId} />
+      </div>
+    )
   }
 
   render() {
-    const { isShow, articleId } = this.props
+    const { isShow } = this.props
     const buttonTitle = isShow ? `Hide Comments` : `Show Comments`
 
     return (
@@ -71,8 +76,6 @@ class CommentList extends React.Component {
           transitionLeaveTimeout={300}
         >
           {this.commentsBody}
-
-          <CommentForm articleId={articleId} />
         </CSSTransitionGroup>
       </div>
     )
