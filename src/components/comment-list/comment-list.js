@@ -31,18 +31,16 @@ class CommentList extends React.Component {
       this.props.toggleHideShow()
       if (!this.props.loaded) {
         this.props.loadAllComments()
-        return <Loader />
       }
     }
   }
 
   get commentsBody() {
-    const { isShow, articleId, loading } = this.props
+    const { isShow, articleId, loading, loaded } = this.props
     if (!isShow) return null
 
-    if (loading) {
-      return <Loader />
-    }
+    if (loading) return <Loader />
+    if (!loaded) return <Loader />
 
     const body = this.props.comments.map((commentId) => {
       return (
