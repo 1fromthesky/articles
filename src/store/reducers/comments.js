@@ -3,7 +3,7 @@ import {
   START,
   SUCCESS,
   FAIL,
-  LOAD_ALL_COMMENTS
+  LOAD_COMMENTS
 } from '../../constants'
 import { Record } from 'immutable'
 import { arrToMap } from '../../utils'
@@ -31,16 +31,15 @@ export default (comments = new ReducerRecord(), action) => {
         new CommentRecord({ ...payload.comment, id: newCommentId })
       )
     }
-    case LOAD_ALL_COMMENTS + START: {
+    case LOAD_COMMENTS + START: {
       return comments.set(`loading`, true)
     }
-    case LOAD_ALL_COMMENTS + SUCCESS: {
+    case LOAD_COMMENTS + SUCCESS: {
       return comments
         .set(`entities`, arrToMap(action.responce, CommentRecord))
         .set(`loading`, false)
-        .set(`loaded`, true)
     }
-    case LOAD_ALL_COMMENTS + FAIL: {
+    case LOAD_COMMENTS + FAIL: {
       return comments.set(`error`, action.error).set(`loading`, false)
     }
     default:

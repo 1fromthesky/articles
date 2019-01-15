@@ -3,6 +3,7 @@ import {
   ADD_COMMENT,
   LOAD_ALL_ARTICLES,
   LOAD_ARTICLE,
+  LOAD_COMMENTS,
   START,
   SUCCESS,
   FAIL
@@ -16,7 +17,9 @@ const ArticleRecord = Record({
   text: null,
   date: null,
   comments: [],
-  loaded: undefined
+  loaded: null,
+  commentsLoading: null,
+  commentsLoaded: null
 })
 
 const ReducerRecord = Record({
@@ -63,6 +66,17 @@ export default (articles = new ReducerRecord(), action) => {
     }
     case LOAD_ARTICLE + FAIL: {
       return articles.set(`error`, action.error).set(`loading`, false)
+    }
+    case LOAD_COMMENTS + START: {
+      return articles.setIn(
+        [`entities`, payload.articleId, `commentLoading`],
+        true
+      )
+    }
+    case LOAD_COMMENTS + SUCCESS: {
+      return articles
+        .setIn([`entities`, payload.articleId, `commentsLoaded`], true)
+        .setIn([`entities`, payload.articleId, `commentsLoading`], false)
     }
     default:
       return articles

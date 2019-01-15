@@ -2,20 +2,6 @@ import { createSelector } from 'reselect'
 
 export const idSelector = (_, props) => props.id
 
-export const commentsMapSelector = (state) => state.comments.entities
-export const commentsLoadingSelector = (state) => state.comments.loading
-export const commentsLoadedSelector = (state) => state.comments.loaded
-
-export const createCommentSelector = () => {
-  return createSelector(
-    commentsMapSelector,
-    idSelector,
-    (comments, id) => {
-      return comments.get(id)
-    }
-  )
-}
-
 export const filtersSelector = (state) => state.filters
 export const articlesLoadingSelector = (state) => state.articles.loading
 export const articlesLoadedSelector = (state) => state.articles.loaded
@@ -46,6 +32,38 @@ export const filteredArticleSelector = createSelector(
   }
 )
 
-export const articleLoadedSelector = (state, props) => {
-  return state.articles.getIn([`entities`, props.article.id]).loaded
+export const articleSelector = (state, props) => {
+  const id = props.article ? props.article.id : props.articleId
+  return state.articles.getIn([`entities`, id])
+}
+
+export const articleLoadedSelector = createSelector(
+  articleSelector,
+  (article) => {
+    return article.loaded
+  }
+)
+
+export const commentsMapSelector = (state) => state.comments.entities
+export const commentsLoadingSelector = createSelector(
+  articleSelector,
+  (article) => {
+    return article.commentsLoading
+  }
+)
+export const commentsLoadedSelector = createSelector(
+  articleSelector,
+  (article) => {
+    return article.commentsLoaded
+  }
+)
+
+export const createCommentSelector = () => {
+  return createSelector(
+    commentsMapSelector,
+    idSelector,
+    (comments, id) => {
+      return comments.get(id)
+    }
+  )
 }

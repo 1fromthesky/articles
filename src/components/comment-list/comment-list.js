@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
 import './style.css'
 import CommentForm from '../comment-form'
-import { loadAllComments } from '../../store/ac'
+import { loadComments } from '../../store/ac'
 import {
   commentsLoadingSelector,
   commentsLoadedSelector
@@ -30,7 +30,7 @@ class CommentList extends React.Component {
     this.onToggle = () => {
       this.props.toggleHideShow()
       if (!this.props.loaded) {
-        this.props.loadAllComments(this.props.articleId)
+        this.props.loadComments(this.props.articleId)
       }
     }
   }
@@ -80,16 +80,16 @@ class CommentList extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    loading: commentsLoadingSelector(state),
-    loaded: commentsLoadedSelector(state)
+    loading: commentsLoadingSelector(state, ownProps),
+    loaded: commentsLoadedSelector(state, ownProps)
   }
 }
 
 export default connect(
   mapStateToProps,
   {
-    loadAllComments
+    loadComments
   }
 )(showOrHideElem(CommentList))
