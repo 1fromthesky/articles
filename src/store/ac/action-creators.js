@@ -88,7 +88,7 @@ export const loadArticle = (id) => {
 export const loadComments = (articleId) => {
   return {
     type: LOAD_COMMENTS,
-    callAPI: `/api/comment?article=${articleId}`,
-    payload: { articleId }
+    payload: { articleId },
+    callAPI: `/api/comment?article=${articleId}`
   }
 }

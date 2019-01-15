@@ -17,7 +17,6 @@ const CommentRecord = Record({
 const ReducerRecord = Record({
   entities: arrToMap([], CommentRecord),
   loading: false,
-  loaded: false,
   error: null
 })
 
@@ -36,7 +35,7 @@ export default (comments = new ReducerRecord(), action) => {
     }
     case LOAD_COMMENTS + SUCCESS: {
       return comments
-        .set(`entities`, arrToMap(action.responce, CommentRecord))
+        .mergeIn([`entities`], arrToMap(action.responce, CommentRecord))
         .set(`loading`, false)
     }
     case LOAD_COMMENTS + FAIL: {
