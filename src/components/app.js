@@ -1,17 +1,35 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ArticleList from './article-list'
 import UserForm from './user-form'
 import Filters from './filters'
 import Counter from './counter'
+import { Route, NavLink } from 'react-router-dom'
 
-export default class App extends React.Component {
+export default class App extends Component {
   render() {
     return (
       <div>
         <UserForm />
-        <Counter />
-        <Filters />
-        <ArticleList />
+        <div>
+          <div>
+            <NavLink to="/counter" activeStyle={{ color: `red` }}>
+              Counter
+            </NavLink>
+          </div>
+          <div>
+            <NavLink to="/filtres" activeStyle={{ color: `red` }}>
+              Filtres
+            </NavLink>
+          </div>
+          <div>
+            <NavLink to="/articles" activeStyle={{ color: `red` }}>
+              Articles
+            </NavLink>
+          </div>
+        </div>
+        <Route path="/counter" component={Counter} />
+        <Route path="/filtres" component={Filters} />
+        <Route path="/articles" component={ArticleList} />
       </div>
     )
   }
