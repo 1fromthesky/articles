@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CommentList from '../comment-list/comment-list'
 import PropTypes from 'prop-types'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
 import './style.css'
 import { deleteArticleAC, loadArticle } from '../../store/ac'
-import { articleLoadedSelector } from '../../selectors'
+import { articleSelector } from '../../selectors'
 import Loader from '../common/loader'
 
-class Article extends React.PureComponent {
+class Article extends Component {
   static propTypes = {
+    id: PropTypes.string.isRequired,
     article: PropTypes.shape({
       id: PropTypes.string,
       text: PropTypes.string,
@@ -38,12 +39,12 @@ class Article extends React.PureComponent {
   get articleBody() {
     const { article, isOpen } = this.props
     if (!isOpen) return null
-    if (!this.props.loaded) return <Loader />
+    if (this.props.article.loading) return <Loader />
     return (
       <section key={article.id} className="test--article__body">
         {article.text}
         {this.state.error ? null : (
-          <CommentList comments={article.comments} articleId={article.id} />
+          <CommentList comments={article.comments} id={article.id} />
         )}
       </section>
     )
@@ -52,6 +53,9 @@ class Article extends React.PureComponent {
   render() {
     const { article, isOpen } = this.props
     const buttonTitle = isOpen ? `close` : `open`
+
+    if (!article) return null
+
     return (
       <div>
         <h3>{article.title}</h3>
@@ -78,11 +82,11 @@ class Article extends React.PureComponent {
     )
   }
 
-  componentDidUpdate(oldProps) {
-    const { isOpen, loadArticle, article, loaded } = this.props
-
-    if (isOpen && !oldProps.isOpen && !loaded) {
-      loadArticle(article.id)
+  componentDidUpdate() {
+    const { loadArticle, id, article } = this.props
+    console.log(this.props)
+    if (!article || (!article.loading && !article.text)) {
+      loadArticle(id)
     }
   }
 
@@ -93,7 +97,7 @@ class Article extends React.PureComponent {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    loaded: articleLoadedSelector(state, ownProps)
+    article: articleSelector(state, ownProps)
   }
 }
 

@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Article from '../article/index'
 import Loader from '../common/loader'
 import accordion from '../../decorators/accordion'
 import PropTypes from 'prop-types'
@@ -10,6 +9,7 @@ import {
   articlesLoadedSelector
 } from '../../selectors'
 import { loadAllArticlesAC } from '../../store/ac'
+import { NavLink } from 'react-router-dom'
 
 export class ArticleList extends React.Component {
   static propTypes = {
@@ -17,23 +17,25 @@ export class ArticleList extends React.Component {
     fetchData: PropTypes.func,
 
     //from accordion decorator
-    openItemId: PropTypes.string,
-    toggleOpenCloseItem: PropTypes.func.isRequired
-  }
-
-  componentDidMount() {
-    !this.props.loaded && this.props.fetchData && this.props.fetchData()
+    openItemId: PropTypes.string
   }
 
   get items() {
     return this.props.articles.map((article) => {
       return (
         <li key={article.id} className="test--article-list__item">
-          <Article
+          {/* <Article
             article={article}
             isOpen={this.props.openItemId === article.id}
             toggleOpenClose={this.props.toggleOpenCloseItem}
-          />
+          /> */}
+
+          <NavLink
+            activeStyle={{ color: `red` }}
+            to={`/articles/${article.id}`}
+          >
+            {article.title}
+          </NavLink>
         </li>
       )
     })
@@ -43,6 +45,10 @@ export class ArticleList extends React.Component {
     if (this.props.loading) return <Loader />
 
     return <ul>{this.items}</ul>
+  }
+
+  componentDidMount() {
+    !this.props.loaded && this.props.fetchData && this.props.fetchData()
   }
 }
 

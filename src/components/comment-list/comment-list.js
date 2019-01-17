@@ -30,13 +30,13 @@ class CommentList extends React.Component {
     this.onToggle = () => {
       this.props.toggleHideShow()
       if (!this.props.loaded) {
-        this.props.loadComments(this.props.articleId)
+        this.props.loadComments(this.props.id)
       }
     }
   }
 
   get commentsBody() {
-    const { isShow, articleId, loading, loaded } = this.props
+    const { isShow, id, loading, loaded } = this.props
     if (!isShow) return null
 
     if (loading) return <Loader />
@@ -53,7 +53,7 @@ class CommentList extends React.Component {
     return (
       <div>
         <ul className="test--comments__body">{body}</ul>
-        <CommentForm articleId={articleId} />
+        <CommentForm articleId={id} />
       </div>
     )
   }

@@ -32,15 +32,16 @@ export const filteredArticleSelector = createSelector(
   }
 )
 
-export const articleSelector = (state, props) => {
-  const id = props.article ? props.article.id : props.articleId
-  return state.articles.getIn([`entities`, id])
-}
+// export const articleSelector = (state, props) => {
+//   const id = props.article ? props.article.id : props.articleId
+//   return state.articles.getIn([`entities`, id])
+// }
 
-export const articleLoadedSelector = createSelector(
-  articleSelector,
-  (article) => {
-    return article.loaded
+export const articleSelector = createSelector(
+  articlesMapSelector,
+  idSelector,
+  (articles, id) => {
+    return articles.get(id)
   }
 )
 
