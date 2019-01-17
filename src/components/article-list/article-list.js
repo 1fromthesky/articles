@@ -17,7 +17,8 @@ export class ArticleList extends React.Component {
     fetchData: PropTypes.func,
 
     //from accordion decorator
-    openItemId: PropTypes.string
+    openItemId: PropTypes.string,
+    toggleOpenCloseItem: PropTypes.func.isRequired
   }
 
   get items() {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import CommentList from '../comment-list/comment-list'
 import PropTypes from 'prop-types'
@@ -8,7 +8,7 @@ import { deleteArticleAC, loadArticle } from '../../store/ac'
 import { articleSelector } from '../../selectors'
 import Loader from '../common/loader'
 
-class Article extends Component {
+class Article extends PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
     article: PropTypes.shape({
@@ -16,8 +16,7 @@ class Article extends Component {
       text: PropTypes.string,
       comments: PropTypes.array
     }),
-    isOpen: PropTypes.bool.isRequired,
-    toggleOpenClose: PropTypes.func.isRequired
+    isOpen: PropTypes.bool.isRequired
   }
 
   constructor(props) {
@@ -38,8 +37,11 @@ class Article extends Component {
 
   get articleBody() {
     const { article, isOpen } = this.props
+
     if (!isOpen) return null
+
     if (this.props.article.loading) return <Loader />
+
     return (
       <section key={article.id} className="test--article__body">
         {article.text}
@@ -82,9 +84,8 @@ class Article extends Component {
     )
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
     const { loadArticle, id, article } = this.props
-    console.log(this.props)
     if (!article || (!article.loading && !article.text)) {
       loadArticle(id)
     }

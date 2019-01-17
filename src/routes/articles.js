@@ -6,12 +6,17 @@ import Article from '../components/article'
 class ArticlesRoute extends Component {
   getArticle = ({ match }) => {
     const { id } = match.params
-    return <Article id={id} isOpen />
+    return <Article key={id} id={id} isOpen />
   }
 
   render() {
     return (
       <div>
+        <Route
+          path="/articles"
+          exact
+          render={() => <h2>Please select an Article</h2>}
+        />
         <ArticleList />
         <Route path="/articles/:id" render={this.getArticle} />
       </div>
