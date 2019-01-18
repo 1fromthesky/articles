@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Comment from '../comment/index'
 import showOrHideElem from '../../decorators/show-or-hide-elem'
@@ -13,7 +13,7 @@ import {
 } from '../../selectors'
 import Loader from '../common/loader'
 
-class CommentList extends React.Component {
+class CommentList extends Component {
   static propTypes = {
     comments: PropTypes.array.isRequired,
     isShow: PropTypes.bool.isRequired,
