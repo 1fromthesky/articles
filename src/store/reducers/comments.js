@@ -18,7 +18,6 @@ const CommentRecord = Record({
 const ReducerRecord = Record({
   entities: arrToMap([], CommentRecord),
   loading: false,
-  loaded: false,
   error: null,
   total: null,
   pagination: new Map()
@@ -51,7 +50,6 @@ export default (comments = new ReducerRecord(), action) => {
         )
         .set(`total`, action.responce.total)
         .set(`loading`, false)
-        .set(`loaded`, true)
     }
     case LOAD_COMMENTS_FOR_PAGE + FAIL: {
       return comments.set(`error`, action.error).set(`loading`, false)
