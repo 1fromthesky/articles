@@ -34,9 +34,9 @@ class CommentsPagination extends Component {
   }
 
   get pages() {
-    const { comments, total } = this.props
+    const { total } = this.props
 
-    if (!comments) return null
+    if (!total) return null
 
     const pagesList = []
     for (let i = 0; i <= total / 5; i++) {
