@@ -84,4 +84,4 @@ export const getPageCommentsId = createSelector(
 )
 
 export const getPageCommentsLoading = (state) => state.comments.loading
-export const getPageCommentsLoaded = (state) => state.comments.loaded
+export const getPageCommentsTotal = (state) => state.comments.total

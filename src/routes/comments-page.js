@@ -4,7 +4,9 @@ import { Route } from 'react-router-dom'
 
 class CommentsRoute extends Component {
   commentsPage = ({ match }) => {
-    return <CommentsPagination page={match.params.page} />
+    return (
+      <CommentsPagination key={match.params.page} page={match.params.page} />
+    )
   }
 
   render() {

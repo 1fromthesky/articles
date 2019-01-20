@@ -7,8 +7,9 @@ import { loadCommentsPage } from '../../store/ac'
 import {
   getPageCommentsId,
   getPageCommentsLoading,
-  getPageCommentsLoaded
+  getPageCommentsTotal
 } from '../../selectors'
+import { NavLink } from 'react-router-dom'
 
 class CommentsPagination extends Component {
   static propTypes = {
@@ -16,10 +17,10 @@ class CommentsPagination extends Component {
   }
 
   get commentsBody() {
-    const { comments, loading, loaded } = this.props
-    console.log(this.props)
+    const { comments, loading } = this.props
+
     if (loading) return <Loader />
-    if (!loaded) return <Loader />
+    if (!comments) return null
 
     const body = comments.map((commentId) => {
       return (
@@ -32,23 +33,52 @@ class CommentsPagination extends Component {
     return <ul>{body}</ul>
   }
 
+  get pages() {
+    const { comments, total } = this.props
+
+    if (!comments) return null
+
+    const pagesList = []
+    for (let i = 0; i <= total / 5; i++) {
+      const NumPage = i + 1
+      pagesList.push(
+        <span key={i}>
+          <NavLink
+            key={i}
+            to={`/comments/${NumPage}`}
+            activeStyle={{ color: `red` }}
+          >
+            page {NumPage}
+          </NavLink>
+          <span key={`s` + i}> </span>
+        </span>
+      )
+    }
+    return pagesList
+  }
+
   render() {
-    // if (!this.props.comments) return null
-    return this.commentsBody
+    return (
+      <div>
+        {this.commentsBody}
+        {this.pages}
+      </div>
+    )
   }
 
   componentDidMount() {
-    const { page } = this.props
-    if (Number.isInteger(+page)) {
+    const { page, comments, loading } = this.props
+    if (Number.isInteger(+page) && !comments && !loading) {
       this.props.loadCommentsPage(page)
     }
   }
 }
+
 const mapStateToProps = (state, ownProps) => {
   return {
     comments: getPageCommentsId(state, ownProps),
     loading: getPageCommentsLoading(state),
-    loaded: getPageCommentsLoaded(state)
+    total: getPageCommentsTotal(state)
   }
 }
 

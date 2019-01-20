@@ -20,6 +20,7 @@ const ReducerRecord = Record({
   loading: false,
   loaded: false,
   error: null,
+  total: null,
   pagination: new Map()
 })
 
@@ -48,6 +49,7 @@ export default (comments = new ReducerRecord(), action) => {
           [`pagination`, payload.page],
           action.responce.records.map((item) => item.id)
         )
+        .set(`total`, action.responce.total)
         .set(`loading`, false)
         .set(`loaded`, true)
     }
