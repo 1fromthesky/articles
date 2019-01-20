@@ -28,7 +28,7 @@ export default class App extends Component {
             </NavLink>
           </div>
           <div>
-            <NavLink to="/comments" activeStyle={{ color: `red` }}>
+            <NavLink to="/comments/1" activeStyle={{ color: `red` }}>
               Comments
             </NavLink>
           </div>
@@ -38,7 +38,7 @@ export default class App extends Component {
           <Route path="/filtres" component={Filters} />
           <Route path="/articles/new" render={() => <h2>New article</h2>} />
           <Route path="/articles" component={ArticleRoute} />
-          <Route path="/comments" component={CommentsRoute} />
+          <Route path="/comments/1" component={CommentsRoute} />
         </Switch>
       </div>
     )

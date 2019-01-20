@@ -9,7 +9,8 @@ import {
   LOAD_COMMENTS,
   START,
   SUCCESS,
-  FAIL
+  FAIL,
+  LOAD_COMMENTS_FOR_PAGE
 } from '../../constants'
 
 export const incrementAC = () => {
@@ -90,5 +91,14 @@ export const loadComments = (articleId) => {
     type: LOAD_COMMENTS,
     payload: { articleId },
     callAPI: `/api/comment?article=${articleId}`
+  }
+}
+
+export const loadCommentsPage = (page) => {
+  const offset = page * 5 - 5
+  return {
+    type: LOAD_COMMENTS_FOR_PAGE,
+    payload: { page },
+    callAPI: `/api/comment/?limit=5&offset=${offset}`
   }
 }

@@ -68,3 +68,20 @@ export const createCommentSelector = () => {
     }
   )
 }
+
+export const commentsMapPagesSelector = (state) => {
+  return state.comments.pagination
+}
+
+export const getPageComments = (_, props) => props.page
+
+export const getPageCommentsId = createSelector(
+  commentsMapPagesSelector,
+  getPageComments,
+  (commentsPages, page) => {
+    return commentsPages.get(page)
+  }
+)
+
+export const getPageCommentsLoading = (state) => state.comments.loading
+export const getPageCommentsLoaded = (state) => state.comments.loaded
