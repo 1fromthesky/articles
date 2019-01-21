@@ -77,7 +77,7 @@ class CommentsPagination extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     comments: getPageCommentsId(state, ownProps),
-    loading: getPageCommentsLoading(state),
+    loading: getPageCommentsLoading(state, ownProps),
     total: getPageCommentsTotal(state)
   }
 }

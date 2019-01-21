@@ -79,9 +79,16 @@ export const getPageCommentsId = createSelector(
   commentsMapPagesSelector,
   getPageComments,
   (commentsPages, page) => {
-    return commentsPages.get(page)
+    return commentsPages.getIn([page, `ids`])
   }
 )
 
-export const getPageCommentsLoading = (state) => state.comments.loading
+export const getPageCommentsLoading = createSelector(
+  commentsMapPagesSelector,
+  getPageComments,
+  (commentsPages, page) => {
+    return commentsPages.getIn([page, `loading`])
+  }
+)
+
 export const getPageCommentsTotal = (state) => state.comments.total

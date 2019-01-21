@@ -95,7 +95,8 @@ export const loadComments = (articleId) => {
 }
 
 export const loadCommentsPage = (page) => {
-  const offset = page * 5 - 5
+  const offset = (page - 1) * 5
+
   return {
     type: LOAD_COMMENTS_FOR_PAGE,
     payload: { page },

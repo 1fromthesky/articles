@@ -17,10 +17,9 @@ const CommentRecord = Record({
 
 const ReducerRecord = Record({
   entities: arrToMap([], CommentRecord),
-  loading: false,
   error: null,
   total: null,
-  pagination: new Map()
+  pagination: new Map({})
 })
 
 export default (comments = new ReducerRecord(), action) => {
@@ -39,20 +38,22 @@ export default (comments = new ReducerRecord(), action) => {
         .set(`loading`, false)
     }
     case LOAD_COMMENTS_FOR_PAGE + START: {
-      return comments.set(`loading`, true)
+      return comments.setIn([`pagination`, payload.page, `loading`], true)
     }
     case LOAD_COMMENTS_FOR_PAGE + SUCCESS: {
       return comments
         .mergeIn([`entities`], arrToMap(action.responce.records, CommentRecord))
         .setIn(
-          [`pagination`, payload.page],
+          [`pagination`, payload.page, `ids`],
           action.responce.records.map((item) => item.id)
         )
         .set(`total`, action.responce.total)
-        .set(`loading`, false)
+        .setIn([`pagination`, payload.page, `loading`], false)
     }
     case LOAD_COMMENTS_FOR_PAGE + FAIL: {
-      return comments.set(`error`, action.error).set(`loading`, false)
+      return comments
+        .set(`error`, action.error)
+        .setIn([`pagination`, payload.page, `loading`], false)
     }
     default:
       return comments
