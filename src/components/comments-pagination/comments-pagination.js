@@ -9,7 +9,7 @@ import {
   getPageCommentsLoading,
   getPageCommentsTotal
 } from '../../selectors'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Redirect } from 'react-router-dom'
 
 class CommentsPagination extends Component {
   static propTypes = {
@@ -34,9 +34,11 @@ class CommentsPagination extends Component {
   }
 
   get pages() {
-    const { total } = this.props
+    const { total, page } = this.props
 
     if (!total) return null
+    if (page > total / 5)
+      return <Redirect to={`/comments/${Math.floor(total / 5) + 1}`} />
 
     const pagesList = []
     for (let i = 0; i <= total / 5; i++) {
