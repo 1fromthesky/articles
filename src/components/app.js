@@ -5,34 +5,21 @@ import Counter from './counter'
 import CommentsRoute from '../routes/comments-page'
 import { Route, NavLink, Switch, Redirect } from 'react-router-dom'
 import ArticleRoute from '../routes/articles'
+import Menu, { MenuItem } from '../components/menu'
 
 export default class App extends Component {
   render() {
     return (
       <div>
         <UserForm />
-        <div>
-          <div>
-            <NavLink to="/counter" activeStyle={{ color: `red` }}>
-              Counter
-            </NavLink>
-          </div>
-          <div>
-            <NavLink to="/filtres" activeStyle={{ color: `red` }}>
-              Filtres
-            </NavLink>
-          </div>
-          <div>
-            <NavLink to="/articles" activeStyle={{ color: `red` }}>
-              Articles
-            </NavLink>
-          </div>
-          <div>
-            <NavLink to="/comments/1" activeStyle={{ color: `red` }}>
-              Comments
-            </NavLink>
-          </div>
-        </div>
+
+        <Menu>
+          <MenuItem to="/counter">Counter</MenuItem>
+          <MenuItem to="/filters">Filters</MenuItem>
+          <MenuItem to="/articles">Articles</MenuItem>
+          <MenuItem to="/comments/1">Comments</MenuItem>
+        </Menu>
+
         <Switch>
           <Redirect exact from="/" to="/articles" />
           <Route path="/counter" exact component={Counter} strict />
