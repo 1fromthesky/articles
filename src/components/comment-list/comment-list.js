@@ -12,6 +12,7 @@ import {
   commentsLoadedSelector
 } from '../../selectors'
 import Loader from '../common/loader'
+import { Consumer as AuthConsumer } from '../../contexts/auth'
 
 class CommentList extends Component {
   static propTypes = {
@@ -52,6 +53,9 @@ class CommentList extends Component {
 
     return (
       <div>
+        <AuthConsumer>
+          {(value) => <h2>{value.userNameFromContext}</h2>}
+        </AuthConsumer>
         <ul className="test--comments__body">{body}</ul>
         <CommentForm articleId={id} />
       </div>

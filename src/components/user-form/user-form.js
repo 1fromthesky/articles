@@ -1,17 +1,11 @@
 import React from 'react'
 
-export default class Article extends React.Component {
+export default class UserForm extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      userName: ``
-    }
 
     this.onChangeName = (event) => {
-      if (event.target.value.length > 20) {
-        return this.setState({ userName: `` })
-      }
-      this.setState({ userName: event.target.value })
+      this.props.onChange(event.target.value)
     }
   }
 
@@ -19,7 +13,7 @@ export default class Article extends React.Component {
     return (
       <form>
         user name:
-        <input value={this.state.userName} onChange={this.onChangeName} />
+        <input value={this.props.value} onChange={this.onChangeName} />
       </form>
     )
   }
