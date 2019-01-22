@@ -35,7 +35,7 @@ export default class App extends Component {
         </div>
         <Switch>
           <Redirect exact from="/" to="/articles" />
-          <Route path="/counter" exact component={Counter} />
+          <Route path="/counter" exact component={Counter} strict />
           <Route path="/filtres" component={Filters} />
           <Route path="/articles/new" render={() => <h2>New article</h2>} />
           <Route path="/articles" component={ArticleRoute} />

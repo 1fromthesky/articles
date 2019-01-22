@@ -5,6 +5,15 @@ import Article from '../components/article'
 
 class ArticlesRoute extends Component {
   getArticle = ({ match }) => {
+    if (!match) {
+      return (
+        <Route
+          path="/articles"
+          exact
+          render={() => <h2>Please select an Article</h2>}
+        />
+      )
+    }
     const { id } = match.params
     return <Article key={id} id={id} isOpen />
   }
@@ -12,13 +21,8 @@ class ArticlesRoute extends Component {
   render() {
     return (
       <div>
-        <Route
-          path="/articles"
-          exact
-          render={() => <h2>Please select an Article</h2>}
-        />
         <ArticleList />
-        <Route path="/articles/:id" render={this.getArticle} />
+        <Route path="/articles/:id" children={this.getArticle} />
       </div>
     )
   }
