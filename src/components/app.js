@@ -40,6 +40,7 @@ export default class App extends Component {
           <Route path="/articles/new" render={() => <h2>New article</h2>} />
           <Route path="/articles" component={ArticleRoute} />
           <Route path="/comments" component={CommentsRoute} />
+          <Route path="/error" render={() => <h1>Error page</h1>} />
         </Switch>
       </div>
     )

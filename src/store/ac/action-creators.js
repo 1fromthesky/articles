@@ -12,6 +12,7 @@ import {
   FAIL,
   LOAD_COMMENTS_FOR_PAGE
 } from '../../constants'
+import { replace } from 'connected-react-router'
 
 export const incrementAC = () => {
   return { type: INCREMENT }
@@ -69,7 +70,12 @@ export const loadArticle = (id) => {
     })
 
     fetch(`/api/article/${id}`)
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status >= 400) {
+          throw new Error(res.statusText)
+        }
+        return res.json()
+      })
       .then((responce) => {
         dicpatch({
           payload: responce,
@@ -77,6 +83,7 @@ export const loadArticle = (id) => {
         })
       })
       .catch((error) => {
+        dicpatch(replace(`./error`))
         dicpatch({
           error,
           payload: { id },
@@ -96,7 +103,6 @@ export const loadComments = (articleId) => {
 
 export const loadCommentsPage = (page) => {
   const offset = (page - 1) * 5
-
   return {
     type: LOAD_COMMENTS_FOR_PAGE,
     payload: { page },
