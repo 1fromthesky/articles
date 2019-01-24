@@ -85,6 +85,9 @@ class CommentList extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  if (!ownProps.id) {
+    return null
+  }
   return {
     loading: commentsLoadingSelector(state, ownProps),
     loaded: commentsLoadedSelector(state, ownProps)
