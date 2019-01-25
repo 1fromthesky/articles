@@ -21,3 +21,8 @@ export const LOAD_ARTICLE = `LOAD_ARTICLE`
 export const LOAD_COMMENTS = `LOAD_COMMENTS`
 
 export const LOAD_COMMENTS_FOR_PAGE = `LOAD_COMMENTS_FOR_PAGE`
+
+export const LOACALIZATION = {
+  RUS: `rus`,
+  ENG: `eng`
+}

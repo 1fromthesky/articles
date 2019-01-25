@@ -13,6 +13,7 @@ import {
 } from '../../selectors'
 import Loader from '../common/loader'
 import { Consumer as AuthConsumer } from '../../contexts/auth'
+import langProvider from '../localization/lang-provider'
 
 class CommentList extends Component {
   static propTypes = {
@@ -63,6 +64,7 @@ class CommentList extends Component {
   }
 
   render() {
+    console.log('tsdfsdf', this.props)
     const { isShow } = this.props
     const buttonTitle = isShow ? `Hide Comments` : `Show Comments`
 
@@ -99,4 +101,4 @@ export default connect(
   {
     loadComments
   }
-)(showOrHideElem(CommentList))
+)(showOrHideElem(langProvider(CommentList)))
