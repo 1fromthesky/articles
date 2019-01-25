@@ -64,9 +64,10 @@ class CommentList extends Component {
   }
 
   render() {
-    console.log('tsdfsdf', this.props)
     const { isShow } = this.props
-    const buttonTitle = isShow ? `Hide Comments` : `Show Comments`
+    const buttonTitle = isShow
+      ? this.props.local.showComments
+      : this.props.local.showComments
 
     return (
       <div>

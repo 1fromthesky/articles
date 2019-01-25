@@ -33,7 +33,7 @@ export default class App extends Component {
           userNameFromContext: this.state.userName
         }}
       >
-        <LocalProvider value={{ lnguage: this.state.language }}>
+        <LocalProvider value={{ language: this.state.language }}>
           <button onClick={this.handleChangeLocalization}>
             Change Language
           </button>
