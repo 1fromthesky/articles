@@ -7,7 +7,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import ArticleRoute from '../routes/articles'
 import Menu, { MenuItem } from '../components/menu'
 import { Provider as AuthProvider } from '../contexts/auth'
-import { Provider as LocalProvider } from './localization/context'
+import LangProvider from './i18n/lang-provider'
 import { LOACALIZATION } from '../constants'
 
 export default class App extends Component {
@@ -18,13 +18,7 @@ export default class App extends Component {
 
   handleUserChange = (userName) => this.setState({ userName })
 
-  handleChangeLocalization = () => {
-    if (this.state.language === LOACALIZATION.ENG) {
-      this.setState({ language: LOACALIZATION.RUS })
-    } else {
-      this.setState({ language: LOACALIZATION.ENG })
-    }
-  }
+  handleChangeLocalization = (language) => () => this.setState({ language })
 
   render() {
     return (
@@ -33,10 +27,15 @@ export default class App extends Component {
           userNameFromContext: this.state.userName
         }}
       >
-        <LocalProvider value={{ language: this.state.language }}>
-          <button onClick={this.handleChangeLocalization}>
-            Change Language
-          </button>
+        <LangProvider language={this.state.language}>
+          <ul>
+            <li onClick={this.handleChangeLocalization(LOACALIZATION.ENG)}>
+              English
+            </li>
+            <li onClick={this.handleChangeLocalization(LOACALIZATION.RUS)}>
+              Russian
+            </li>
+          </ul>
           <div>
             <UserForm
               onChange={this.handleUserChange}
@@ -60,7 +59,7 @@ export default class App extends Component {
               <Route path="/error" render={() => <h1>Error page</h1>} />
             </Switch>
           </div>
-        </LocalProvider>
+        </LangProvider>
       </AuthProvider>
     )
   }
